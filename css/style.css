@@ -8,6 +8,27 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 
+/* teme tweaks*/
+	#three p {
+	    width: 100%;
+	}
+	#three .image {
+		width: 250px;
+	}
+	#three .image img {
+		border-radius: 50%;
+	}
+	body.landing header#header {
+	    background-color: rgba(48, 74, 93, 0.32);
+	    position: fixed;
+	    height: 3em;
+	}
+	header#header h1 {
+		line-height: 2.6em;
+	}
+	header#header nav {
+	    line-height: 2.7em;
+	}
 /* Basic */
 
 	body {
