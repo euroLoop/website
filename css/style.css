@@ -17,6 +17,7 @@
 	}
 	#three .image img {
 		border-radius: 50%;
+		max-height: 124px;
 	}
 	body.landing header#header {
 	    background-color: rgba(48, 74, 93, 0.32);
