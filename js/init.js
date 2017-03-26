@@ -25,13 +25,13 @@
 				grid: { gutters: ['1.5em', 0] },
 				viewport: { scalable: false }
 			},
-			medium: {
+			/*medium: {
 				media: '(max-width: 980px)',
 				href: 'css/style-medium.css',
 				containers: '90%'
-			},
+			},*/
 			small: {
-				media: '(max-width: 736px)',
+				media: '(max-width: 980px)',
 				href: 'css/style-small.css',
 				containers: '90%',
 				grid: { gutters: ['1.25em', 0] }
