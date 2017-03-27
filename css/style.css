@@ -28,7 +28,7 @@
 	}
 
 	.style4 {
-		background-color: #e1001a;
+		background-color: #f3f4f4;
 	}
 
 	h3.title {
@@ -1139,7 +1139,7 @@
 			}
 
 		.wrapper.style2 .title, .wrapper.style2 header {
-			border-bottom: medium double rgba(144, 144, 144, 0.25);
+			/* border-bottom: medium double rgba(144, 144, 144, 0.25); */
 			padding-bottom: 1em;
 		}
 
