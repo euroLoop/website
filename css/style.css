@@ -28,7 +28,7 @@
 	}
 
 	.style4 {
-		background-color: #f3f4f4;
+		background-color: #e1001a;
 	}
 
 	h3.title {
@@ -74,9 +74,10 @@
 	.large-twitter {
 		font-size: 3em;
 	}
-	.large-twitter.accent-color,
-	p.accent-color {
+	.grey-text > .large-twitter.accent-color,
+	.grey-text > p.accent-color {
 		color: #e1001a;
+		font-weight: 400;
 	}
 	.grey-text > p,
 	.grey-text > header {
