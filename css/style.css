@@ -99,7 +99,9 @@
 	    font-size: 21px;
 	    color: #e1001a;
 	}
-
+	.hyperloop-graphic {
+		width: 100%;
+	}
 	header p {
 		font-weight: 300;
 	}
@@ -1156,7 +1158,7 @@
 
 	#footer {
 		background: #e1001a;
-		background-image: url('../images/layout/background2.png');
+		background-image: url('../images/layout/background2.jpg');
 		color: #888;
 		padding: 6em 0em 4em;
 	}
