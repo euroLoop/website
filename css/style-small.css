@@ -9,7 +9,10 @@
 	body, input, select, textarea {
 		font-size: 18pt;
 	}
-
+	
+.member {
+    width: 100%;
+}
 /* Section/Article */
 
 	section.special, article.special {

@@ -34,7 +34,7 @@
 	}
 
 	.style4 {
-		background-color: #f3f4f4;
+		background-color: #e1001a;
 	}
 
 	h3.title {
@@ -1075,7 +1075,7 @@
 /* Banner */
 
 	#banner {
-		background: url("images/overlay.png"), url("../images/layout/main_background.png");
+		background: url("images/overlay.png"), url("../images/layout/main_background.jpg");
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -1118,8 +1118,8 @@
 	}
 
 		.wrapper.style1 {
-			background-color: #3ba666;
-			background-image: url('../images/layout/background2.png');
+			background-color: #e1001a;
+			background-image: url('../images/layout/background2.jpg');
 			/*-moz-background-image: l inear-gradient(60deg, #4dac71 50%, #3ba666 50%);
 			-webkit-background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
 			-o-background-image: linear-gradient(60deg, #4dac71 50%, #3ba666 50%);
@@ -1161,7 +1161,7 @@
 /* Footer */
 
 	#footer {
-		/* background: #202222; */
+		background: #e1001a;
 		background-image: url('../images/layout/background2.png');
 		color: #888;
 		padding: 6em 0em 4em;
