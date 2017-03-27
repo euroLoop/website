@@ -9,10 +9,23 @@
 	body, input, select, textarea {
 		font-size: 18pt;
 	}
-	
+
 .member {
     width: 100%;
 }
+.banner-text p#tag-line {
+    font-size: 1.0em;
+    line-height: normal;
+    margin-top: 0.1em;
+    text-align: left;
+
+}
+
+.banner .button {
+	    font-size: 0.5em;
+    margin-top: 15px;
+}
+
 /* Section/Article */
 
 	section.special, article.special {
