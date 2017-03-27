@@ -13,7 +13,9 @@
 	body, input, select, textarea {
 		font-size: 12pt;
 	}
-
+.member {
+    width: 100%;
+}
 /* List */
 
 	ul.actions {

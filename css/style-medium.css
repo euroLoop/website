@@ -22,6 +22,10 @@
 		display: none;
 	}
 
+	.member {
+	    width: 50%;
+	}
+
 /* Banner */
 
 	#banner {
