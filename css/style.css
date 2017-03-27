@@ -112,7 +112,8 @@
 	    color: #e1001a;
 	}
 	.hyperloop-graphic {
-		width: 100%;
+	    width: 80%;
+	    max-width: 768px;
 	}
 	header p {
 		font-weight: 300;
