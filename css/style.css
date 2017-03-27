@@ -1072,7 +1072,7 @@
 /* Banner */
 
 	#banner {
-		background: url("images/overlay.png"), url("../images/layout/main_background.jpg");
+		background: url("../images/layout/main_background.jpg");
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
