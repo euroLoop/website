@@ -41,6 +41,7 @@
 	#main-poland-logo {
 	    width: 16em;
 	}
+
 	#banner > img, 
 	#banner > .banner-text {
 	    display: inline-block;
@@ -48,6 +49,7 @@
 	}
 	#banner > .banner-text {
 	    padding-top: 5em;
+	    margin-right: 220px;
 	}
 	#banner > .banner-text > * {
 	    display: block;
@@ -1084,12 +1086,13 @@
 /* Banner */
 
 	#banner {
+		padding-right: 60px;
 		background: url("../images/layout/main_background.jpg");
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
 		color: #ffffff;
-		padding: 17em 0em 14em;
+		padding: 10em 0em 21em;
 		text-align: center;
 	}
 

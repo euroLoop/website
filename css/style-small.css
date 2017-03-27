@@ -21,6 +21,11 @@
 
 }
 
+#banner > .banner-text {
+    padding-top: 1em;
+    margin-right: 0;
+}
+
 .banner .button {
 	    font-size: 0.5em;
     margin-top: 15px;
