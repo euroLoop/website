@@ -9,23 +9,26 @@
 	body, input, select, textarea {
 		font-size: 18pt;
 	}
+	
+	#main-poland-logo + .banner-text {
+    	margin-top: 50px;
+    	margin-right: 0px;
+	}
+	
+	#main-poland-logo {
+	    width: 250px;
+	}
+	#banner .banner-text p.tag-line {
+	    font-size: 1.2em;
+	    line-height: 1.2em;
+	}
+	#banner .banner-text .button {
+	    font-size: 0.5em;
+	}
 
 .member {
     width: 100%;
 }
-.banner-text p#tag-line {
-    font-size: 1.0em;
-    line-height: normal;
-    margin-top: 0.1em;
-    text-align: left;
-
-}
-
-#banner > .banner-text {
-    padding-top: 1em;
-    margin-right: 0;
-}
-
 .banner .button {
 	    font-size: 0.5em;
     margin-top: 15px;

@@ -26,11 +26,17 @@
 	    width: 50%;
 	}
 
-/* Banner */
 
-	#banner {
-		padding: 12em 2em 10em;
+/* Banner */
+	#main-poland-logo + .banner-text {
+    	margin-top: 50px;
+    	margin-right: 0px;
 	}
+	
+	#main-poland-logo {
+	    width: 250px;
+	}
+	
 
 /* Layers */
 
