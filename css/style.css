@@ -3,10 +3,13 @@
 /* @import url("http://fonts.googleapis.com/css?family=Lato:300,400"); */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 
-/* teme tweaks*/
-	/* #three p {
-	    width: 100%;
-	} */
+	header#header.thin nav,
+	header#header.thin h1{
+	    line-height: 4em;
+	}
+	body.landing header#header.thin {
+		height: 4em;
+	}
 
 	#three .image img {
 		border-radius: 50%;

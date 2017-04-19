@@ -70,10 +70,23 @@
 		}
 	});
 
-	$(function() {
-
-		// ...
-
-	});
+	$(window).ready(function(){
+		var windowHeight = $(window).height();
+		var $header = $("#header");
+		$(window).resize(function(){	
+			windowHeight = $(window).height();
+		}).scroll(function (event) {
+		    var scroll = $(window).scrollTop();
+		    if(scroll > windowHeight) {
+		    	if(!$header.hasClass("thin")) {
+		    		$header.addClass("thin");
+		    	}
+		    } else {
+		        if($header.hasClass("thin")) {
+		            $header.removeClass("thin");
+		        }	        
+		    }
+		});
+	})
 
 })(jQuery);
