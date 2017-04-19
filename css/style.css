@@ -3,6 +3,39 @@
 /* @import url("http://fonts.googleapis.com/css?family=Lato:300,400"); */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 
+	.press-articles-wrapper article {
+	    width: 33%;
+		padding: 0 3em 3em 3em;
+    	float: left;
+	}
+
+	.press-articles-wrapper article img {
+		width: 100%;
+	}
+
+	.press-articles-wrapper article p {
+		text-align: left;
+		font-size: 0.8em;
+	}
+
+	.press-articles-wrapper article h1 {
+		font-size: 1.2em;
+	    margin: 0.5em 0em;
+	    font-weight: 800;
+	}
+
+	.press-articles-wrapper .button.press {
+		background-color: #e1001a;
+		font-size: 1em;
+		padding: 5px 15px;
+		line-height: 1em;
+		height: calc(1em + 10px);
+	}
+
+	.press-articles-wrapper .button.press:hover {
+		background-color: #e05130;
+	}
+
 	header#header.thin nav,
 	header#header.thin h1{
 	    line-height: 4em;
@@ -127,6 +160,13 @@
 	.copyright li {
 	    color: #fff;
 	}
+/* Utility */
+.clearfix::after { 
+   content: " ";
+   display: block; 
+   height: 0; 
+   clear: both;
+}
 
 /* Basic */
 
