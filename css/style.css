@@ -3,6 +3,18 @@
 /* @import url("http://fonts.googleapis.com/css?family=Lato:300,400"); */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 
+/* Partners section */
+	.partners-wrapper article {
+	    width: 25%;
+		padding: 1em;
+    	float: left;
+	}
+
+	.partners-wrapper article img {
+		width: 100%;
+	}
+
+/* Press section */
 	.press-articles-wrapper article {
 	    width: 33%;
 		padding: 0 3em 3em 3em;
