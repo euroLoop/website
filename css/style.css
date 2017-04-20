@@ -28,6 +28,8 @@
 	.press-articles-wrapper article p {
 		text-align: left;
 		font-size: 0.8em;
+		max-height: 100px;
+    	overflow: hidden;
 	}
 
 	.press-articles-wrapper article h1 {
