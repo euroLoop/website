@@ -125,16 +125,25 @@
 	.grey-text > header {
 		color: #808080;
 	}
+
+/* Mmebers*/
 	.member {
 	    width: 25%;
+	    position: relative;
+		margin: 0;
+	    padding: 1em;
 	}
 	.member > span, 
 	.member > p {
 	    position: relative;
 	    font-size: 16px;
 	}
+	.member p {
+	    margin: 0;
+	}
 	.member .image {
 		width: 100%;
+		max-width: 150px;
 	}
 	.member .name-plate{
 		display: table;
@@ -152,6 +161,32 @@
 	.member .name-plate b {
 	    font-size: 21px;
 	    color: #e1001a;
+	}
+	.member .description {
+		display: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: white;
+		text-align: left;
+		z-index: 200;
+		overflow: auto;
+		width: 100%;
+		height: 100%;
+		padding: 1.5em;
+		animation: hide 0.5s ease-out;
+	}
+	.member:hover .description {
+		display: block;
+		animation: show 0.5s ease-out;
+	}
+	@keyframes hide {
+	    from {opacity: 1;}
+	    to {opacity: 0;}
+	}
+	@keyframes show {
+	    from {opacity: 0;}
+	    to {opacity: 1;}
 	}
 	.hyperloop-graphic {
 	    width: 80%;

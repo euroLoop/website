@@ -71,6 +71,10 @@
 	});
 
 	$(window).ready(function(){
+
+		/* 
+			Header size control based on scroll position
+		*/
 		var windowHeight = $(window).height();
 		var $header = $("#header");
 		$(window).resize(function(){	
@@ -87,6 +91,7 @@
 		        }	        
 		    }
 		});
+
 	})
 
 })(jQuery);
