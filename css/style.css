@@ -7,7 +7,7 @@
 	.partners-wrapper article {
 	    width: 25%;
 		padding: 1em;
-    	float: left;
+    display: inline-block;
 	}
 
 	.partners-wrapper article img {
@@ -95,7 +95,7 @@
     	margin-top: 100px;
     	margin-right: 300px;
 	}
-	
+
 	#main-poland-logo {
 	    display: inline-block;
 	    width: 350px;
@@ -112,7 +112,7 @@
 	    padding: 0 1em 0 1em;
 	    font-size: 0.7em;
 	}
-	
+
 	.large-twitter {
 		font-size: 3em;
 	}
@@ -133,7 +133,7 @@
 		margin: 0;
 	    padding: 1em;
 	}
-	.member > span, 
+	.member > span,
 	.member > p {
 	    position: relative;
 	    font-size: 16px;
@@ -210,10 +210,10 @@
 	    color: #fff;
 	}
 /* Utility */
-.clearfix::after { 
+.clearfix::after {
    content: " ";
-   display: block; 
-   height: 0; 
+   display: block;
+   height: 0;
    clear: both;
 }
 
