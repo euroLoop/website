@@ -82,6 +82,10 @@
 	    line-height: 6em;
 	}
 
+	#nav li{
+		font-weight: 300;
+	}
+
 	.style4 {
 		background-color: #f3f4f4;
 	}
