@@ -211,6 +211,17 @@
 	    font-size: 21px;
 	    color: #e1001a;
 	}
+
+	.member .description::-webkit-scrollbar {
+    width: 4px;
+	}
+	.member .description::-webkit-scrollbar-thumb {
+	  background-color: #e1001a;
+    -webkit-border-radius: 10px;
+    border-radius : 10px;
+    -webkit-border-radius: 10px;
+		border-radius : 10px;
+	}
 	.member .description {
 		background: white;
 		text-align: left;
@@ -220,6 +231,7 @@
 		height: 100%;
 		padding: 0 1.5em;
 	}
+
 	@keyframes hide {
 	    from {opacity: 1;}
 	    to {opacity: 0;}
