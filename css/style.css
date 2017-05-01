@@ -213,7 +213,7 @@
 	}
 
 	.member .description::-webkit-scrollbar {
-    width: 4px;
+    width: 1px;
 	}
 	.member .description::-webkit-scrollbar-thumb {
 	  background-color: #e1001a;
