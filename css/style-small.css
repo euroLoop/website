@@ -52,6 +52,18 @@
 			padding: 1em 1em 0 1em;
 		}
 
+	.press-articles-wrapper article {
+		width: 100%;
+	}
+
+		.press-articles-wrapper article img {
+		    position: relative;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    height: 100%;
+		    max-width: 100%;
+		}
+
 /* Banner */
 
 	#banner {
