@@ -17,8 +17,9 @@
 /* Press section */
 	.press-articles-wrapper article {
 	    width: 33%;
-		padding: 0 3em 3em 3em;
-    	float: left;
+	    padding: 0 0.5em 1em 0.5em;
+	    float: left;
+	    height: 400px;
 	}
 
 	.press-articles-wrapper article img {
@@ -42,9 +43,20 @@
 	.press-articles-wrapper article h1 {
 		font-size: 1.2em;
 	    margin: 0.5em 0em;
-	    font-weight: 800;
+	    font-weight: 400;
 	    /*max-height: 3em;
     	overflow: hidden;*/
+	}
+	.press-articles-wrapper article .card {
+	    border: 1px solid #cccccc;
+	    border-radius: 3px;
+	    background: white;	    
+    	padding: 2em 1em;
+    	height: 100%;
+    	position: relative;
+	}
+	.press-articles-wrapper article .card:hover {
+	    box-shadow: #949494 0px 0px 5px;
 	}
 
 	.press-articles-wrapper .button.press {
@@ -53,6 +65,9 @@
 		padding: 5px 15px;
 		line-height: 1em;
 		height: calc(1em + 10px);
+		bottom: 20px;
+	    position: absolute;
+	    transform: translateX(-50%);
 	}
 
 	.press-articles-wrapper .button.press:hover {
