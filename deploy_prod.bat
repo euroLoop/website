@@ -1,1 +1,1 @@
-surge --domain this-is-to-share.surge.sh
+surge --domain euroloop.tech
