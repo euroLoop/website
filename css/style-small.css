@@ -34,6 +34,7 @@
     margin-top: 15px;
 }
 
+
 /* Section/Article */
 
 	section.special, article.special {
@@ -55,15 +56,23 @@
 	.press-articles-wrapper article {
 		width: 100%;
 	}
-
+		.press-articles-wrapper article h1 {
+    		font-size: 0.8em;
+    	}
 		.press-articles-wrapper article img {
 		    position: relative;
 		    top: 50%;
 		    transform: translateY(-50%);
-		    height: 100%;
+		    height: auto;
 		    max-width: 100%;
 		}
 
+	/* partners */
+	.partners-wrapper article {
+	    width: 60%;
+	    padding: 1em;
+	    display: inline-block;
+	}
 /* Banner */
 
 	#banner {

@@ -108,7 +108,17 @@
 			#navPanel nav .button {
 				width: 100%;
 			}
-
+		/* press */
+		.press-articles-wrapper article h1 {
+    		font-size: 1.2em;
+    	}
+		.press-articles-wrapper article img {
+		    position: relative;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    height: 100%;
+		    max-width: 100%;
+		}
 /* Footer */
 
 	#footer .icons .rounded {
