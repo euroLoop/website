@@ -5,9 +5,9 @@
 
 /* Partners section */
 	.partners-wrapper article {
-	    width: 25%;
 		padding: 1em;
     display: inline-block;
+		width: 25%;
 	}
 
 	.partners-wrapper article img {
@@ -16,42 +16,39 @@
 
 /* Press section */
 	.press-articles-wrapper article {
-	    width: 33%;
+	    width: 25%;
 	    padding: 0 0.5em 1em 0.5em;
 	    float: left;
-	    height: 400px;
+	    height: 250px;
 	}
 
 	.press-articles-wrapper article img {
 		position: relative;
-	    width: 100%;
-	    top: 50%;
-	    transform: translateY(-50%);
+    width: 80%;
+    top: 50%;
+    transform: translateY(-50%);
 	}
 
 	.press-articles-wrapper article .image-wrapper {
-	    height: 150px;
+	    height: 100px;
 	}
 
 	.press-articles-wrapper article p {
 		text-align: left;
-		font-size: 0.8em;
 		max-height: 100px;
-    	overflow: hidden;
+  	overflow: hidden;
 	}
 
 	.press-articles-wrapper article h1 {
-		font-size: 1.2em;
-	    margin: 0.5em 0em;
-	    font-weight: 400;
-	    /*max-height: 3em;
-    	overflow: hidden;*/
+		font-size: 0.8em;
+    margin: 0.5em 0em;
+    font-weight: 400;
 	}
 	.press-articles-wrapper article .card {
 	    border: 1px solid #cccccc;
 	    border-radius: 3px;
 	    background: white;
-    	padding: 2em 1em;
+    	padding: 1em 1em;
     	height: 100%;
     	position: relative;
 	}
@@ -65,9 +62,9 @@
 		padding: 5px 15px;
 		line-height: 1em;
 		height: calc(1em + 10px);
+    position: absolute;
 		bottom: 20px;
-	    position: absolute;
-	    transform: translateX(-50%);
+    transform: translateX(-50%);
 	}
 
 	.press-articles-wrapper .button.press:hover {
