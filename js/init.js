@@ -71,13 +71,20 @@
 	});
 
 	$(window).ready(function(){
+		var banner = $("#banner");
+		console.log(skel.vars);
+		if (!skel.vars.isMobile) {
+			banner.addClass("desktop");
+		} else {
+			banner.removeClass("desktop");
+		}
 
-		/* 
+		/*
 			Header size control based on scroll position
 		*/
 		var windowHeight = $(window).height();
 		var $header = $("#header");
-		$(window).resize(function(){	
+		$(window).resize(function(){
 			windowHeight = $(window).height();
 		}).scroll(function (event) {
 		    var scroll = $(window).scrollTop();
@@ -88,7 +95,7 @@
 		    } else {
 		        if($header.hasClass("thin")) {
 		            $header.removeClass("thin");
-		        }	        
+		        }
 		    }
 		});
 

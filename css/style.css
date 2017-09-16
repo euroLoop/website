@@ -143,6 +143,10 @@
 	    font-size: 0.7em;
 	}
 
+	#banner.desktop {
+		margin-top: 6em;
+	}
+
 	.large-twitter {
 		font-size: 3em;
 	}
