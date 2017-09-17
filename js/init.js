@@ -72,7 +72,6 @@
 
 	$(window).ready(function(){
 		var banner = $("#banner");
-		console.log(skel.vars);
 		if (!skel.vars.isMobile) {
 			banner.addClass("desktop");
 		} else {
