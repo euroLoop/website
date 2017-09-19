@@ -97,7 +97,7 @@ body.landing header#header.thin {
 }
 
 body.landing header#header {
-  background-color: #fff;
+  background-color: black;
   position: fixed;
   height: 6em;
   -webkit-box-shadow: 0px 0px 26px 1px rgba(0, 0, 0, 0.5);
@@ -1184,13 +1184,13 @@ body.landing #header {
   -o-transition: color 0.2s ease-in-out;
   -ms-transition: color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out;
-  color: #e1001a;
+  color: white;
   display: inline-block;
   text-decoration: none;
 }
 
 #header nav>ul>li a:hover {
-  color: #0f0f0f;
+  color: #ff0f0f;
 }
 
 #header nav>ul>li:first-child {
