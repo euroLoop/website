@@ -4,7 +4,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Complex Polylines</title>
+    <title>Euroloop route planning tool v0.1</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -21,26 +21,26 @@
     <script src="https://www.google.com/jsapi"></script>
   </head> 
   <body>
-    <div id="map" style="height:750px;"></div>
+    <div id="map" style="height:725px;"></div>
     <div id="elevation_chart"></div>
-    Velocity(km/h):
-    <input type="text" name="vel" id="vel" value="120" size="5">
-    Throughput(per day):
+    Velocity (km/h):
+    <input type="text" name="vel" id="vel" value="600" size="5">
+    Throughput (containers per day):
     <input type="text" name="throughput" id="throughput" value="100" size="5">
-    Tube diameter(m):
+    Tube diameter (m):
     <input type="text" name="diameter" id="diameter" value="4.5" size="5">
-    Loading time(mins):
+    Loading time (mins):
     <input type="text" name="loadingtime" id="loadingtime" value="4" size="5">
     <input type="button" value="Update" onclick="updateRoute()">
     <br>
     <br>
-    Track length(km):
+    Track length (km):
     <input type="text" name="length" id="length" value="1.000.000" size="5">
     CAPEX(€m):
     <input type="text" name="capex" id="capex" value="1.000.000" size="5">
     Number of Pods:
     <input type="text" name="nrPods" id="nrPods" value="17" size="5">
-    Travel time(mins):
+    Travel time (mins):
     <input type="text" name="traveltime" id="traveltime" value="15" size="5">
 
     <script>
@@ -98,7 +98,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
-          center: {lat: 41.879, lng: -87.624}  // Center the map on Chicago, USA.
+          center: {lat: 52.12, lng: 21.00}  // Center the map on Chicago, USA.
         });
 
         poly = new google.maps.Polyline({
@@ -165,7 +165,7 @@
         document.getElementById('length').value = length/1000
 
         var xhr = new XMLHttpRequest();
-        var url = "http://localhost:8080/";
+        var url = "https://euroloop-route.herokuapp.com/request";
         xhr.open("POST", url, true);
 
         var vel = parseInt( document.getElementById('vel').value )
