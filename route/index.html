@@ -175,7 +175,7 @@
 
         var data = JSON.stringify({"length": length, "velocity": vel, "throughput": throughput, "diameter": diameter, "loadingtime": loadingtime});
 
-        xhr.onreadystatechange = function() {//Call a function when the response is received.
+        xhr.onreadystatechange = function() {//Update UI when the response is received.
             if(xhr.readyState == 4 && xhr.status == 200) {
                 console.log(xhr.responseText);
                 var jsonResponse = JSON.parse(xhr.responseText);
