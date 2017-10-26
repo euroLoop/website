@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.95em;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+#map.chart-shown {
+  height: calc(100% - 150px);
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+#mapcontainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+#mapcontainer.all-shown {
+  width: calc(100% - 200px);
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.columns {
+  display: flex;
+}
+
+.full-page {
+  height: 100%;
+  width: 100%;
+}
+
+#settings {
+  max-width: 200px;
+  min-width: 200px;
+  background: #434142;
+  color: white;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+  white-space: nowrap;
+  width: 200px;
+}
+
+#settings.hidden {
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+  width: 0px;
+  max-width: 0px;
+  min-width: 0px;
+  visibility: hidden;
+}
+
+#elevation_chart {
+  height: 150px;
+  margin-top: 0px;
+  max-height: 150px;
+  min-height: 150px;
+  overflow: hidden;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+#elevation_chart.hidden {
+  height: 0px;
+  margin-top: 150px;
+  max-height: 0px;
+  min-height: 0px;
+  visibility: hidden;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.button-group {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  z-index: 1;
+}
+
+.loop-toggle {
+  background: white;
+  border-radius: 3px;
+  border: 1px #8B898A solid;
+  color: #434142;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 3px;
+  margin-bottom: 3px;
+  text-align: center;
+  transition: 1s;
+  z-index: 1;
+}
+
+.loop-toggle:hover {
+  background: #e1001a;
+  color: white;
+  transition: 1s;
+}
+
+.setting {
+  margin: 5px;
+  display: flex;
+  white-space: nowrap;
+}
+
+.setting label {
+  float: left;
+  position: relative;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.setting .value {
+  border-radius: 5px;
+  border-style: hidden;
+  margin-left: auto;
+  max-width: 80px;
+  width: 100%;
+}
+
+.setting .value:read-only {
+  background-color: #8B898A;
+  color: white;
+  text-align: right;
+}
+
+.setting label .tooltip {
+  visibility: hidden;
+  white-space: normal;
+  width: 140px;
+  background-color: #434142;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: -75%;
+  left: 205px;
+}
+
+.setting label .tooltip::after {
+  position: absolute;
+  top: 30%;
+  left: -10px;
+  content:"";
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right:10px solid #434142;
+}
+
+.setting label:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.update-button {
+  margin: 5px;
+}
+
+.update-button input {
+  border: 1px transparent;
+  border-radius: 2px;
+  background: #e1001a;
+  color: white;
+  font-size: 1em;
+  width: 100%;
+}
