@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="route-style.css" />
     <link rel="stylesheet" href="../css/font-awesome.min.css" />
     <script src="https://www.google.com/jsapi"></script>
-    <script src="route.js"></script>
     <script src="../js/jquery.min.js"></script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ">
+    </script>
+    <script src="../js/v3_epoly.js"></script>
+    <script src="route.js"></script>
+    <script src="route_calculations.js"></script>
   </head>
   <body>
     <div class="columns full-page">
@@ -69,8 +74,6 @@
         <div id="elevation_chart" class="hidden"></div>
       </div>
     </div>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ&callback=initMap">
-    </script>
+    <script>initMap()</script>
   </body>
 </html>
