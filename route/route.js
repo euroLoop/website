@@ -74,6 +74,18 @@ function initMap() {
     }
   });
 
+  var xhr = new XMLHttpRequest();
+  var url = "https://euroloop-route.herokuapp.com/init";
+  xhr.open("POST", url, true);
+  xhr.onreadystatechange = function() {//Call a function when the response is received.
+      if(xhr.readyState == 4 && xhr.status == 200) {
+          console.log(xhr.responseText);
+          var jsonResponse = JSON.parse(xhr.responseText);
+          document.getElementById('podweight').value = jsonResponse.podweight
+      }
+  }
+  xhr.send()
+
   // Create an ElevationService.
   elevator = new google.maps.ElevationService;
 

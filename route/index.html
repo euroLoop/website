@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="route-style.css" />
     <link rel="stylesheet" href="../css/font-awesome.min.css" />
     <script src="https://www.google.com/jsapi"></script>
-    <script src="route.js"></script>
+    <script src="route_new.js"></script>
     <script src="../js/jquery.min.js"></script>
   </head>
   <body>
@@ -33,6 +33,11 @@
           <label>Loading time (mins)</label>
           <input class="value" type="text" name="loadingtime" id="loadingtime" value="4" size="5">
         </div>
+        <div class="setting">
+          <label>Pod weight (tons)</label>
+          <input class="value" type="text" name="podweight" id="podweight" value="4" size="5">
+        </div>
+        
         <div class="update-button">
           <input type="button" value="Update" onclick="updateRoute()">
         </div>
@@ -70,7 +75,7 @@
       </div>
     </div>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ&callback=initialize">
     </script>
   </body>
 </html>
