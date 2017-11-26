@@ -49,6 +49,26 @@ let map;
 let elevator;
 
 function initMap() {
+  // Based on http://www.geocodezip.com/v3_SO_simpleMap_bindMarkers2Polyline.html
+  function MVCArrayBinder(mvcArray){
+    this.array_ = mvcArray;
+  }
+  MVCArrayBinder.prototype = new google.maps.MVCObject();
+  MVCArrayBinder.prototype.get = function(key) {
+    if (!isNaN(parseInt(key))){
+      return this.array_.getAt(parseInt(key));
+    } else {
+      this.array_.get(key);
+    }
+  }
+  MVCArrayBinder.prototype.set = function(key, val) {
+    if (!isNaN(parseInt(key))){
+      this.array_.setAt(parseInt(key), val);
+    } else {
+      this.array_.set(key, val);
+    }
+  }
+
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 7,
     center: {lat: 52.12, lng: 21.00},
@@ -59,8 +79,10 @@ function initMap() {
     strokeOpacity: 1.0,
     strokeWeight: 3,
   });
-  poly.setEditable(true);
+  // poly.setEditable(true);
   poly.setMap(map);
+
+  poly.binder = new MVCArrayBinder(poly.getPath());
 
   // Add a listener for the click event to add new vertexes
   map.addListener('click', addLatLng);
@@ -117,7 +139,18 @@ function addLatLng(event) {
   // Because path is an MVCArray, we can simply append a new coordinate
   // and it will automatically appear.
   path.push(event.latLng);
-
+  const len = path.getLength();
+  console.log(len);
+  const marker = new google.maps.Marker({
+    map: map,
+    icon: {
+      url: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle.png",
+      size: new google.maps.Size(7,7),
+      anchor: new google.maps.Point(4,4)
+    },
+    draggable : true
+  });
+  marker.bindTo('position', poly.binder, (len-1).toString());
   updateRoute();
 }
 
@@ -184,3 +217,5 @@ function toggleChart() {
     google.maps.event.trigger(map, 'resize');
   }, 1100);
 }
+
+initMap();
