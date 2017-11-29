@@ -10,9 +10,7 @@
     <script src="https://www.google.com/jsapi"></script>
     <script src="route.js"></script>
     <script src="../js/jquery.min.js"></script>
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ">
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ"></script>
     <script src="../js/v3_epoly.js"></script>
     <script src="route.js"></script>
   </head>
@@ -47,6 +45,7 @@
           <input type="button" value="Update" onclick="updateRoute()">
         </div>
         <br>
+        
         <div class="setting">
           <label>Track length (km)</label>
           <input readonly class="value" type="text" name="length" id="length" value="1.000.000" size="5">
@@ -63,6 +62,16 @@
           <label>Travel time (mins)</label>
           <input readonly class="value" type="text" name="traveltime" id="traveltime" value="15" size="5">
         </div>
+        <br>
+        <div class="setting">
+          <label>Curve radius</label>
+          <input class="value" type="text" name="curveradius" id="curveradius" value="0" size="5">
+        </div>
+        
+        <div class="update-button">
+          <input type="button" value="Set radius" onclick="setRadius()">
+        </div>
+
       </div>
       <div id="mapcontainer">
         <div class="button-group">

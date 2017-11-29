@@ -10,12 +10,20 @@ function UpDateAll(){
     SetMarkers();
 }
 
+function MarkerClick(MarkNum, MarkPos){ // this will set ArcCtre to the new marker posn, and does the curve calculations
+    //console.log("marker dragged", MarkNum, MarkPos.lat(), MarkPos.lng());
+    document.getElementById('curveradius').value = CnrRadius[MarkNum]
+    SelectMarker = MarkNum;
+}
+
 function MarkerDrag(MarkNum, MarkPos){ // this will set ArcCtre to the new marker posn, and does the curve calculations
     //console.log("marker dragged", MarkNum, MarkPos.lat(), MarkPos.lng());
     AdjustCurve(MarkNum, MarkPos);
     CalculateCorners();
     MakeRoute();
     DrawRoute();
+    document.getElementById('curveradius').value = CnrRadius[MarkNum]
+    SelectMarker = MarkNum;
 }
 
 function MarkerDragFinished(MarkNum, MarkPos){ // this will redraw the markers to suit the new legal ArcCtre positions
@@ -27,6 +35,15 @@ function MarkerDragFinished(MarkNum, MarkPos){ // this will redraw the markers t
     SetMarkers();
 }
 
+function setRadius(){
+    CnrRadius[SelectMarker] = document.getElementById('curveradius').value
+    
+    //AdjustCurve(MarkNum, MarkPos);
+    CalculateCorners();
+    MakeRoute();
+    DrawRoute();
+    SetMarkers();
+}
 
 google.load('visualization', '1', {packages: ['columnchart']});
 
@@ -84,30 +101,26 @@ function addLatLng(event) {
   updateRoute();
 }
 
-
 function AdjustCurve(MarkNum, MarkPos){ //Adjusts the curve radius when the handle is moved by the mouse
-    // note that the curve handle is always 20 pixels from the edge of the arc
-    // so it can be moved even if the radius is zero
-    MPerPix = 95 * 1024/Math.pow(2, map.getZoom());// scale is 95 for zoom = 10, when 2^10 = 1024
-    HandleOffsetM = HandleFromCurve * MPerPix; // 20 pix
-    HalfAng = (180 - CnrAngChange[MarkNum]) / 2; // angle between line and bisector
-    HalfSin = Math.sin(degRad(HalfAng));
-    MouseToPtM = google.maps.geometry.spherical.computeDistanceBetween(CnrPt[MarkNum], MarkPos); //distance of the mouse from the corner point in M
-    NewArcToPt = MouseToPtM - HandleOffsetM;
-    CnrSetRadZero[MarkNum] = false;
-    // print ("new arc to pt", NewArcToPt)
-    if (NewArcToPt > 0){
-        NewRad = NewArcToPt / (1 - HalfSin);
-    }
-    else {
-        CnrSetRadZero[MarkNum] = true;
-        console.log("setting radzero");
-        NewRad = 0;
-    } // if the mouse is closer to the point than 20 pixels, rad = 0
-    if (NewRad < MinRadius) NewRad = 0; // dont allow tiny radius, just set it to zero
-    //console.log("rad was", CnrRadius[MarkNum], "NewRad", NewRad);
-    CnrRadius[MarkNum] = NewRad;
- }
+   // note that the curve handle is always 20 pixels from the edge of the arc
+   // so it can be moved even if the radius is zero
+   MPerPix = 95 * 1024/Math.pow(2, map.getZoom());// scale is 95 for zoom = 10, when 2^10 = 1024
+   HandleOffsetM = HandleFromCurve * MPerPix; // 20 pix
+   HalfAng = (180 - CnrAngChange[MarkNum]) / 2; // angle between line and bisector
+   HalfSin = Math.sin(degRad(HalfAng));
+   CurveHandleLgth = google.maps.geometry.spherical.computeDistanceBetween(CnrPt[MarkNum], MarkPos); //distance of the mouse from the corner point in M
+   ArcEdgeToPt = CurveHandleLgth - HandleOffsetM;
+   CnrSetRadZero[MarkNum] = false;
+   if (ArcEdgeToPt > 0){
+       NewRad = HalfSin * ArcEdgeToPt / (1 - HalfSin);
+       if (NewRad > MinRadius) CnrRadius[MarkNum] = NewRad;
+       else CnrRadius[MarkNum] = MinRadius;
+   }
+   else {
+       CnrSetRadZero[MarkNum] = true;
+       CnrRadius[MarkNum] = 0;
+   }
+}
 
 function MakeRadSegments (Ctre, StartAng, AngChge, Rad) {
     //this constructs a number of arc segments around a given point
@@ -156,10 +169,12 @@ function MakeRoute() { // scans thru all the lines and makes the route array
 }
 
 function MakeCurve(a){ // this is calculating the arc for the corner radius. Sets the construction pts in Cnr[a]
-    //console.log("make curve", a, " ", CnrRadius[a]);
+    console.log("make curve", a, " ", CnrRadius[a]);
+
     if (CnrRadius[a] === 0) {
         CnrRadius[a] = DefaultRadius;
     }
+
     HalfLineBefore = 0.45 * google.maps.geometry.spherical.computeDistanceBetween(CnrPt[a - 1], CnrPt[a]); // need the half line length to restrict the radius size
     HalfLineAfter = 0.45 * google.maps.geometry.spherical.computeDistanceBetween(CnrPt[a], CnrPt[a + 1]); // the 0.45 is to leave a little line in the middle
     MaxTangLength = Math.min(HalfLineBefore, HalfLineAfter);
@@ -179,7 +194,6 @@ function MakeCurve(a){ // this is calculating the arc for the corner radius. Set
     HandleOffsetM = HandleFromCurve * MPerPix; // 20 pix
     CurveHandLgth = PtToArcCtre - CnrRadius[a] + HandleOffsetM;// the distance of the handle from the point
     CnrCurveHandle[a] = google.maps.geometry.spherical.computeOffset(CnrPt[a], CurveHandLgth, CnrBisAng[a]);
-
 }
 
 
@@ -276,6 +290,12 @@ function SetMarkers(){ // Sets the posotion of the curve handle markers on the a
         google.maps.event.addListener(marker, "dragend", function(){
             MarkerDragFinished(this.zIndex, this.getPosition());
         });
+        
+        google.maps.event.addListener(marker, "click", function(){
+            MarkerClick(this.zIndex, this.getPosition());
+            //console.log("marker id", this.zIndex, "pos", MarkPos.lat());
+         });
+
     }
 
 }
@@ -450,6 +470,8 @@ var markers = [];
 var NumCorners = 0;
 var NumRoutePts = 0;
 
+var SelectMarker = 0;
+
 var DefaultRadius = 40000 // the radius when we make a new vertex. may end up smaller to fit the line
 var MinRadius = 500 // dont allow for small radii
 var MinSegmentAngle = 10 // the mimimum angle for the curve segment lines.
@@ -457,6 +479,7 @@ var MinDrawSegLgth = 1000 //the min length of a segment
 var MinSpeedLineLgth = 200// the distance apart of the speed array points. Speed will be calc for each distance
 var HandleFromCurve = 20//pixels distance from the curve edge
 DeleteMenu.prototype = new google.maps.OverlayView();
+
 
 DeleteMenu.prototype.onAdd = function() {
     var deleteMenu = this;
