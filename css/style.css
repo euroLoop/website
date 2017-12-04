@@ -14,50 +14,8 @@
 }
 
 .partners-wrapper article img {
+  width: 100%;
   vertical-align: middle;
-}
-
-.partners-wrapper-2 article {
-  padding: 1em;
-  display: inline-block;
-  width: 25%;
-}
-
-.partners-wrapper-2 article img {
-  width: 90%;
-  vertical-align: middle;
-}
-
-.partners-wrapper-3 article {
-  padding: 1em;
-  display: inline-block;
-  width: 25%;
-}
-
-.partners-wrapper-3 article img {
-  width: 70%;
-  vertical-align: middle;
-}
-
-.partners-wrapper-4 article {
-  padding: 1em;
-  display: inline-block;
-  width: 25%;
-}
-
-.partners-wrapper-4 article img {
-  width: 50%;
-  vertical-align: middle;
-}
-
-.partners-wrapper-5 article {
-  padding: 1em;
-  display: inline-block;
-  width: 25%;
-}
-
-.partners-wrapper-5 article img {
-  width: 80%;
 }
 
 /* Press section */
