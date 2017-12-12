@@ -1226,12 +1226,12 @@ body.landing #header {
 #banner {
   padding-right: 60px;
   padding-top: 100px;
-  background: url("../images/layout/main_background_2.jpg");
-  background-position: center;
+  background: url("../images/layout/new_background_2.jpg");
+  background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
   color: #ffffff;
-  padding: 10em 0em 21em;
+  padding: 21em 0em 21em;
   text-align: center;
 }
 
