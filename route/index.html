@@ -11,6 +11,7 @@
     <script src="route.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
     <script src="../js/v3_epoly.js"></script>
     <script src="route.js"></script>
   </head>
@@ -84,9 +85,14 @@
             CHART
           </div>
         </div>
-        <div id="map"></div>
+        <div id="map" style="width: 1200px; height: 500px"></div>
         <div id="elevation_chart" class="hidden"></div>
       </div>
+
+      <div id="SpeedChartDiv" style="width: 900px; height: 300px"></div>
+      <div id="BattChartDiv" style="width: 900px; height: 300px"></div>
+      <div id="DataDiv" style="width: 900px; height: 400px"></div>
+
     </div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ&callback=initialize">

@@ -1,0 +1,518 @@
+
+<html>
+<head>
+<body>
+<div id="SpeedChartDiv" style="width: 900px; height: 400px"></div>
+<div id="BattChartDiv" style="width: 900px; height: 400px"></div>
+<div id="DataDiv" style="width: 900px; height: 400px"></div>
+</body>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['line','corechart']});
+        //google.charts.setOnLoadCallback(DrawDemoChart);
+
+        function PrintInfo(ThisPod){
+            EnergyKwh = EnergyKj / 3600;
+            KwhPer100k = EnergyKwh * 100 / (TotDist/1000);
+            KwhPerSeat100k = KwhPer100k / Pod[ThisPod].NumPax;
+            //console.log("print thispod", ThisPod, Pod[ThisPod].Name);
+
+            //T = "Energy kWh " + str(int(EnergyKwh)) + "  KwhPerSeat100k " + str(int(KwhPerSeat100k * 10)/10) + "   Battery kWh " + str(int(Ss.MaxBattery))
+            //w.create_text(600, G.Base + TextHt, text=T, anchor = SW)
+            //T = "Distance km " + str(int(Ss.TotDist/1000)) + "   Time Mins " + str(int(Ss.TotTime/6)/10) + "   Avge km/h " + str(int(Ss.TotDist/1000/Ss.TotTime * 60*60))
+            //w.create_text(240, G.Base + TextHt, text=T, anchor = SW)
+
+            //document.getElementById('DataDiv').innerHTML = "help!!";
+            if (p ===1) document.getElementById('DataDiv').innerHTML = "<br>" ; // clear the div first time
+            document.getElementById('DataDiv').innerHTML += Pod[ThisPod].Name + "<br>" ;// start writing with = and <br> for line feed
+            document.getElementById('DataDiv').innerHTML += "Energy kWh " + EnergyKwh.toFixed(1) + "<br>" ;
+            document.getElementById('DataDiv').innerHTML += "KwhPerSeat100k " + KwhPerSeat100k.toFixed(1) + "<br>" ;
+            document.getElementById('DataDiv').innerHTML += "Battery kWh " + MaxBattery.toFixed(1) + "<br>" ;
+            document.getElementById('DataDiv').innerHTML += "Distance km " + (TotDist/1000).toFixed(1) + "<br>" ;
+            document.getElementById('DataDiv').innerHTML += "Time Mins " + (TotTime/60).toFixed(1) + "<br>" ;
+            document.getElementById('DataDiv').innerHTML += "Avge km/h " + (TotDist/1000/TotTime * 60 * 60).toFixed(0) + "<br>" ;
+            document.getElementById('DataDiv').innerHTML += "     --------  <br>";
+        }
+
+        function SetupSpeedChartArray(){
+            if (NumPodsToChart ===1){
+                SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name]];
+                console.log("doing 1 pod", SegmentCount);
+                for (var i = 0; i < SegmentCount+1; i++) {
+                    SpeedChartArray.push([RouteDist[i]/1000, 0]);
+                }
+
+            }
+            else if(NumPodsToChart === 2){
+                SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name]];
+                for (var i = 0; i < SegmentCount+1; i++) {
+                    SpeedChartArray.push([RouteDist[i]/1000, 0, 0]);
+                }
+
+            }
+            else if(NumPodsToChart === 3){
+                SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name, Pod[ChartPod[3]].Name]];
+                console.log("doing chart", 3, Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name, Pod[ChartPod[3]].Name);
+                for (var i = 0; i < SegmentCount+1; i++) {
+                    SpeedChartArray.push([RouteDist[i]/1000, 0, 0, 0]);
+                }
+            }
+
+        }
+
+        function SetSpeedChartData(Col) {
+            //console.log("ThisPod in set speed", ThisPod, "Col", Col);
+            for (var i = 1; i < SegmentCount + 1; i++) {
+                SpeedChartArray[i][Col] = FinalSpeed[i]*3.6;
+            }
+        }
+
+        function DrawSpeedChart() {
+            var SpeedDataTable = new google.visualization.DataTable();
+            SpeedDataTable = google.visualization.arrayToDataTable(SpeedChartArray);
+
+            var SpeedChartOptions = {
+                chart: {
+                    title: 'Pods speed chart vs distance'
+                },
+                hAxis: {textPosition : 'in'},
+                width: 1500,
+                height: 400,
+            };
+            var SpeedChart = new google.charts.Line(SpeedChartDiv);
+            SpeedChart.draw(SpeedDataTable, SpeedChartOptions);
+        }
+
+
+        function DrawBattChart() {
+            BattChartArray = [['Time from start Mins.', Pod[ChartPod[1]].Name, 'Battery']];
+            for (var i = 0; i < SegmentCount+1; i++) {
+                BattChartArray.push([RouteTime[i]/60, FinalSpeed[i], MaxBattery - FinalEnergy[i]]);
+            }
+            var BattDataTable = new google.visualization.DataTable();
+            BattDataTable = google.visualization.arrayToDataTable(BattChartArray);
+            var BattChartOptions = {
+                chart: {
+                    title: 'Speed and battery capacity chart vs trip time  - ' + Pod[ChartPod[1]].Name
+                },
+                hAxis: {textPosition : 'in',
+                        gridlines: {color: 'transparent'}
+                },
+                width: 1500,
+                height: 400,
+                series: {
+                    // Gives each series an axis name that matches the Y-axis below.
+                    0: {
+                        axis: 'Speed',
+                        gridlines: {color: 'transparent'}
+                    },
+                    1: {
+                        axis: 'Batt',
+                        gridlines: {color: 'transparent'}
+                    }
+                },
+                axes: {
+                    // Adds labels to each axis; they don't have to match the axis names.
+                    y: {
+                        Speed: {label: 'Speed km/h'},
+                        Batt: {label: 'Battery kWHr'}
+                    }
+                }
+            };
+            var BattChart = new google.charts.Line(BattChartDiv);
+            BattChart.draw(BattDataTable, BattChartOptions);
+        }
+
+
+
+
+        function CalcSpeedArray(ThisPod) {
+            RouteDist[0] = 0;
+            TotDist = 0;
+            //console.log("Pod", ThisPod, "SegCount", SegmentCount);
+            for (var i = 1; i < SegmentCount + 1; i++) {
+                // makes a stepped graph of speed at max speed and curve speed.
+                TotDist += SegLength[i];
+                RouteDist[i] = RouteDist[i - 1] + SegLength[i];
+                CurveSpeed = Pod[ThisPod].MaxSpeed;
+                if (SegRadius[i] !== -1) {
+                    CurveSpeed = Math.sqrt(SegRadius[i] * Pod[ThisPod].MaxCornerMss);
+                }
+                SpeedMax[i] = Math.min(Pod[ThisPod].MaxSpeed, CurveSpeed);//put the stepped speeds into Speed[0]
+            }
+            //console.log("max", SpeedMax[1], SpeedMax[2]);
+
+            //console.log("totdist", TotDist);
+            InitSpeed = 0; //starting speed m/s
+            Times2 = 0;
+            for (i = SegmentCount-1; i > 0; i--) { // does a speed ru from the finish, to get the braking profile
+                CalcSegSpeed(InitSpeed, SpeedMax[i], SegLength[i], ThisPod, "Decel");
+                RevEnergy[i] = EnergyThisSeg;
+                RevSegTime[i] = TimeForSeg;
+                Times2 = Times2 + TimeForSeg;
+                RevSpeed[i] = SpeedAtEnd;
+                InitSpeed = SpeedAtEnd;
+                //console.log("rev en", i, RevEnergy[i]);
+            }
+            RevSpeed[0] = 0;
+            RevSegTime[0] = 0;
+            RevEnergy[0] = 0;
+            //console.log("Rev", RevSpeed[1], RevSpeed[2]);
+
+            InitSpeed = 0;
+            Times3 = 0;
+            for (i =1; i < SegmentCount + 1; i++) { // does a speed run from the start
+                CalcSegSpeed(InitSpeed, SpeedMax[i], SegLength[i], ThisPod, "Accel");
+                FwdSpeed[i] = SpeedAtEnd;
+                FwdSegTime[i] = TimeForSeg;
+                Times3 = Times3 + TimeForSeg;
+                FwdEnergy[i] = EnergyThisSeg;
+                InitSpeed = SpeedAtEnd;
+                //console.log("fwd en", i, FwdEnergy[i]);
+                //console.log("Fwd",i, SpeedAtEnd);
+            }
+            FwdSpeed[0] = 0;
+            FwdSegTime[0] = 0;
+            FwdEnergy[0] = 0;
+            //console.log("Fwd", FwdSpeed[1], FwdSpeed[2]);
+
+            TotTime = 0;
+            EnergyKj = 0;
+            for (i = 1; i < SegmentCount + 1; i++) { // compares the forward and reverse speeds, and chooses the slower.
+                if (RevSpeed[i] <= FwdSpeed[i]){
+                    FinalSpeed[i] = RevSpeed[i];
+                    FinalEnergy[i] = RevEnergy[i];
+                    FinalSegTime[i] = RevSegTime[i];
+                }
+                else {
+                    FinalSpeed[i] = FwdSpeed[i];
+                    FinalEnergy[i] = FwdEnergy[i];
+                    FinalSegTime[i] = FwdSegTime[i];
+                }
+                TotTime += FinalSegTime[i];
+                RouteTime[i] = TotTime;
+                EnergyKj += FinalEnergy[i];
+                //console.log("Final Eng",i,  RevEnergy[i], FwdEnergy[i], FinalEnergy[i]);
+            }
+            FinalSpeed[0] = 0;
+
+            MaxBattery = 0;
+            BatterykWHr = 0;
+            FinalEnergy[1] = 0;
+            for (i = 2; i < SegmentCount + 1; i++) { // Calcs the battery power, and finds the max discharge
+                BatterykWHr = FinalEnergy[i] / 3600;
+                FinalEnergy[i] = FinalEnergy[i - 1] + BatterykWHr; //this is the battery capacity used.
+                MaxBattery = Math.max(MaxBattery, FinalEnergy[i-1]);
+                //console.log("Batt",i, BatterykWHr, FinalEnergy[i], MaxBattery);
+            }
+
+        }
+
+        function CalcSegSpeed(InitSpeed, TargetSpeed, SegDist, ThisPod, AccelType) {
+            if (InitSpeed === 0) InitSpeed = 5; //give a value to avoid div by zero later
+            AeroDrag = Pod[ThisPod].AeroDrag * Math.pow(InitSpeed / Pod[ThisPod].MaxSpeed, 2);
+            TireDrag = Pod[ThisPod].Mass / Pod[ThisPod].TireLiftDrag * 9.81;
+            TotDrag = AeroDrag + TireDrag;
+            if (InitSpeed === TargetSpeed) { // just cruising
+                TimeForSeg = SegDist / InitSpeed;
+                EnergyThisSeg = TotDrag * InitSpeed * TimeForSeg / Pod[ThisPod].MotorEff / 1000;
+                SpeedAtEnd = InitSpeed
+            }
+            else {
+                // calc the power if we accel at the max rate of 0.3G
+                if (AccelType === "Accel") {
+                    ThrustLimAccel = TotDrag + Pod[ThisPod].MaxAccelMss * Pod[ThisPod].Mass;
+                    MaxMotorPwr = Pod[ThisPod].MaxPower
+                }
+                else if (AccelType === "Decel") {
+                    ThrustLimAccel = TotDrag - Pod[ThisPod].MaxAccelMss * Pod[ThisPod].Mass;
+                    MaxMotorPwr = - Pod[ThisPod].MaxPower // regen braking
+                }
+                MotorPwrLimAccel = ThrustLimAccel * InitSpeed / 1000;
+                // Now calc the accel rate if limited by max motor power
+                MaxMotorThrust = MaxMotorPwr * 1000 / InitSpeed;
+                MaxThrust = MaxMotorThrust - TotDrag;
+                AccelRateMaxPwr = Math.abs(MaxThrust / Pod[ThisPod].Mass);
+                // now choose the lower of the two accel rates
+                if (AccelRateMaxPwr > Pod[ThisPod].MaxAccelMss) {
+                    AccelRateUsed = Pod[ThisPod].MaxAccelMss;
+                    Power = MotorPwrLimAccel;
+                }
+                else {
+                    AccelRateUsed = AccelRateMaxPwr;
+                    Power = MaxMotorPwr;
+                }
+                TimeForSeg = ((Math.sqrt(Math.pow(InitSpeed, 2) + 2 * AccelRateUsed * SegDist)) - InitSpeed) / AccelRateUsed;
+                SpeedAtEnd = InitSpeed + TimeForSeg * AccelRateUsed;
+
+                if (AccelType === "Accel") EnergyThisSeg = Power * TimeForSeg / Pod[ThisPod].MotorEff;  // more energy on accel
+                else EnergyThisSeg = Power * TimeForSeg * Pod[ThisPod].MotorEff;  // less energy on decel
+
+                if (SpeedAtEnd > TargetSpeed) SpeedAtEnd = TargetSpeed;
+            }
+        }
+
+
+        function AddSection (Len, Rad) {
+            //console.log("+++++sect", Len, Rad);
+            SectionsCount += 1;
+            SectsLen[SectionsCount] = Len;
+            SectsRad[SectionsCount] = Rad;
+        }
+
+        function MakeSectionsFromRoute() { // Scans the route and makes a set of sections
+            // A section is a distance (ie line or curve circumf) with a associated radius
+            // the 'Radius' of a line is 0 if there is a stop, or -1 if the line ends at a curve
+            SpeedPtCount = 0;
+            SectionsCount = 0;
+            for (var a = 2; a < NumCorners + 1; a++) {
+                //console.log("CnrPt", a, CnrPt[a-1].lat, CnrPt[a-1].lng, CnrPt[a].lat, CnrPt[a].lng);
+                if ((CnrRadius[a - 1] === 0) && (CnrRadius[a] === 0)) {
+                    Length = computeDistanceBetween(CnrPt[a - 1], CnrPt[a]);
+                    AddSection(Length, 0);
+                }
+                else if ((CnrRadius[a - 1] === 0) && (CnrRadius[a] > 0)) {
+                    Length = computeDistanceBetween(CnrPt[a - 1], CnrTan1[a]);
+                    AddSection(Length, -1);
+                    ArcDist = Math.abs(2 * Math.PI * CnrRadius[a] * CnrAngChange[a] / 360);
+                    AddSection(ArcDist, CnrRadius[a]);
+                }
+                else if ((CnrRadius[a - 1] > 0) && (CnrRadius[a] === 0)) {
+                    //console.log("lattt", a, CnrTan2[a-1].lat);
+                    Length = computeDistanceBetween(CnrTan2[a - 1], CnrPt[a]);
+                    AddSection(Length, 0);
+                }
+                else if ((CnrRadius[a - 1] > 0) && (CnrRadius[a] > 0)) {
+                    Length = computeDistanceBetween(CnrTan2[a - 1], CnrTan1[a]);
+                    AddSection(Length, -1);
+                    ArcDist = Math.abs(2 * Math.PI * CnrRadius[a] * CnrAngChange[a] / 360);
+                    AddSection(ArcDist, CnrRadius[a]);
+                }
+            }
+        }
+
+        function computeDistanceBetween (p1, p2) {
+            AvgeLat = (p1.lat + p2.lat) / 2;
+            LongitudeScale = Math.sin(DegRad(AvgeLat));
+            dx = (p1.lng - p2.lng) * LongitudeScale;
+            dy = (p1.lat - p2.lat);
+            Pythag = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)); // degrees lat
+            M = Pythag * 1852 * 60;
+            //console.log("Dist", p1.lat, p2.lat, dx,dy,Pythag,M);
+            return M;0
+        }
+
+        function MakeSegmentArray() { //we take the sections, which may be long lines,
+            // Then divide the long lines into short segments. Each has a length and an associated radius
+            // Part of a straight line will usually have rad = -1, or rad = 0 if there is a stop.
+            // print ("Sectionscount", Sect.SectionsCount)
+            SegmentCount = 0;
+            for (var i = 1; i < SectionsCount + 1; i++) {
+                Length = SectsLen[i];
+                Rad = SectsRad[i];
+                NumSegs = 1 + Math.round(Length / MinSpeedLineLgth);
+                //NumSegs = 5;
+                step = Length / NumSegs;
+                //console.log(i, NumSegs, step);
+                for (var j = 1; j < NumSegs + 1; j++) {
+                    SegmentCount += 1;
+                    SegLength[SegmentCount] = step;
+                    if ((Rad === 0) && (j !== NumSegs)) SegRadius[SegmentCount] = -1;
+                    else SegRadius[SegmentCount] = Rad;
+                    //console.log(SegmentCount, SegLength[SegmentCount], SegRadius[SegmentCount]);
+
+                }
+            }
+        }
+
+        function DegRad(d){ // coverts degrees to radians for the trig functions
+            var r = d * Math.PI / 180;
+            return (r);
+        }
+
+        function ArrangePodsToChart() {
+            for (p = 1; p < NumPods + 1; p++) {
+                if (Pod[p].DoChart === 1) {
+                    if (NumPodsToChart < 3) {
+                        NumPodsToChart += 1;
+                        ChartPod[NumPodsToChart] = p;
+                    }
+                    else {
+                        Pod[p].DoChart = 0; // turn it off if there are too many
+                    }
+                }
+            }
+            if (NumPodsToChart === 0) { // make the first one active if none set
+                NumPodsToChart = 1;
+                Pod[1].DoChart = 1;
+                ChartPod[1] = 1;
+            }
+            //console.log(DoPod);
+        }
+
+        SectionsCount = 0;
+        SectsLen = new Array (0);
+        SectsRad = new Array (0);
+
+
+        //MaxSegments = 500;
+        SegmentCount = 0;
+        TotDist = 0;
+        TotTime = 0;
+        TotEnergyKj = 0;
+        MaxBattery = 0;
+        SegLength = new Array (0);
+        RouteDist = new Array();
+        SegRadius = new Array (0);
+        SpeedMax = new Array (0); // the speed limited by curve speed and pod max speed.
+        RevSpeed = new Array (0); // the speed now calc from the reverse run
+        RevSegTime = new Array (0);
+        RevEnergy = new Array (0);
+        FwdSpeed = new Array (0);// the speed now calc from the forward run
+        FwdSegTime = new Array (0);
+        FwdEnergy = new Array (0);
+        FinalSpeed = new Array (0);// the speed now calc from the forward run
+        FinalSegTime = new Array (0);
+        RouteTime = new Array(0);
+        FinalEnergy = new Array (0);
+
+        Pod = new Array();
+        NumPods = 4;
+        Pod[1]={
+            Name: "Cheetah 1,000kmh 3,500kW",
+            MaxSpeed: 1000 / 3.6,  // m/sec
+            MaxCornerMss: 9.81 * 0.5, // m/sec2
+            MaxAccelMss: 9.81 * 0.3,
+            Mass: 10000,
+            MaxPower: 3500, // total kW for the 4 motors
+            MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+            TireLiftDrag: 150,
+            AeroDrag: 500, // drag, N at max speed
+            NumPax: 27,
+            DoChart: 0
+        };
+
+        Pod[2]={
+            Name: "Cheetah 600kmh 2,000kW",
+            MaxSpeed: 600 / 3.6,  // m/sec
+            MaxCornerMss: 9.81 * 0.3, // m/sec2
+            MaxAccelMss: 9.81 * 0.2,
+            Mass: 10000,
+            MaxPower: 2000, // total kW for the 4 motors
+            MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+            TireLiftDrag: 150,
+            AeroDrag: 500, // drag, N at max speed
+            NumPax: 27,
+            DoChart: 0
+        };
+
+        Pod[3]={
+            Name: "High speed rail",
+            MaxSpeed: 200 / 3.6,  // m/sec
+            MaxCornerMss: 9.81 * 0.05, // m/sec2
+            MaxAccelMss: 9.81 * 0.05,
+            Mass: 10000,
+            MaxPower: 2000, // total kW for the 4 motors
+            MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+            TireLiftDrag: 150,
+            AeroDrag: 500, // drag, N at max speed
+            NumPax: 27,
+            DoChart: 0
+        };
+
+        Pod[4]={
+            Name: "Maglev Shanghai Transrapid",
+            MaxSpeed: 400 / 3.6,  // m/sec
+            MaxCornerMss: 9.81 * 0.05, // m/sec2
+            MaxAccelMss: 9.81 * 0.1,
+            Mass: 10000,
+            MaxPower: 1000, // total kW for the 4 motors
+            MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+            TireLiftDrag: 150,
+            AeroDrag: 500, // drag, N at max speed
+            NumPax: 27,
+            DoChart: 0
+        };
+
+
+        function LatLng(lat, lng){
+            this.lat = lat;
+            this.lng = lng
+        }
+        CnrPt = [
+            new LatLng(0,0), // dont use zero pt
+            new LatLng(46.24,6.12), //no 1
+            new LatLng(46.46,6.3),
+            new LatLng(46.52,6.63),
+            new LatLng(46.42,6.92) // no 4
+        ];
+
+        NumCorners = 4;
+        CnrTan1 = [
+            new LatLng(0,0), // dont use zero pt
+            new LatLng(0,0), //no 1
+            new LatLng(46.437, 6.281),
+            new LatLng(0,0)
+        ];
+        CnrTan2 = [
+            new LatLng(0,0), // dont use zero pt
+            new LatLng(0,0), //no 1
+            new LatLng(46.466, 6.335),
+            new LatLng(0,0)
+        ];
+
+        CnrAngChange = new Array(0);
+        CnrAngChange[2] = -45.3;
+
+
+
+        CnrRadius = new Array(0); //radius of the corner curve
+        CnrRadius [0] = 0;
+        CnrRadius [1] = 0;
+        CnrRadius [2] = 7000;
+        CnrRadius [3] = 0; //stop at Lausanne
+        CnrRadius [4] = 0;
+
+        MinSegmentAngle = 10;// the mimimum angle for the curve segment lines.
+        MinDrawSegLgth = 1000;//the min length of a segment
+        MinSpeedLineLgth = 200;//the distance apart of the speed array points. Speed will be calc for each distance
+        var TotDist = 0;
+        var SpeedAtEnd = 0;
+        var TimeForSeg = 0;
+        var EnergyThisSeg = 0;
+
+        MakeSectionsFromRoute();
+        MakeSegmentArray();
+        Pod[1].DoChart = 0;
+        Pod[2].DoChart = 1;
+        Pod[3].DoChart = 1;
+        Pod[4].DoChart = 1;
+        DoBattChart = true;
+
+        var ChartPod = new Array(); // the list of up to 3 charts to draw
+        NumPodsToChart = 0;
+        ArrangePodsToChart(); //will return with a list of 1 to 3 ChartPods set to 1
+        console.log("NumPodsC", NumPodsToChart);
+        ThisPod = p = 0;
+
+        for (p = 1; p < NumPodsToChart + 1; p++) {
+            ThisPod = ChartPod[p];
+            CalcSpeedArray(ThisPod);
+            //console.log("ThisPod", ThisPod);
+            if (p === 1) {
+                SetupSpeedChartArray(); // starts the array with the correct number of lines
+                console.log("Array", SpeedChartArray);
+                if (DoBattChart === true) {
+                    google.charts.setOnLoadCallback(DrawBattChart);
+                }
+            }
+            SetSpeedChartData(p);
+            PrintInfo(ThisPod); // must have divs before the script or the innerHTML gives null error.
+        }
+        google.charts.setOnLoadCallback(DrawSpeedChart);
+
+
+    </script>
+</head>
+</body>
+</html>
