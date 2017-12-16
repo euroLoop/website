@@ -102,7 +102,7 @@ function UpDateAll(){
         Pod[3].DoChart = 1;
         Pod[4].DoChart = 0;
         Pod[5].DoChart = 0;
-        DoBattChart = true;
+        DoBattChart = false;
         
     ArrangePodsToChart();
     GetCornerPolyline();
@@ -460,7 +460,7 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
                     }
                 }
                 SpeedChartAddData(p);// adds the data for this pod to the chart array
-                PrintInfo(ThisPod); // must have divs before the script or the innerHTML gives null error.
+                //PrintInfo(ThisPod); // must have divs before the script or the innerHTML gives null error.
             }
             google.charts.setOnLoadCallback(DrawSpeedChart);// draw the speed chart
 
@@ -1019,10 +1019,10 @@ function toggleSettings() {
     }, 1100);
 }
 
-function toggleChart() {
+function toggleChart(chart_type) {
     const mapContainer= $('#map');
     mapContainer.toggleClass('chart-shown');
-    const chart = $('#elevation_chart');
+    const chart = $(chart_type);
     chart.toggleClass('hidden');
     if (!chart.hasClass('hidden')) {
         setTimeout(function() {

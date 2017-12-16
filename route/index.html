@@ -80,18 +80,15 @@
             <i class="fa fa-cog" aria-hidden="true"></i>
             SETTINGS
           </div>
-          <div class="loop-toggle" onclick="toggleChart()">
+          <div class="loop-toggle" onclick="toggleChart('#SpeedChartDiv')">
             <i class="fa fa-line-chart" aria-hidden="true"></i>
-            CHART
+            CHART1
           </div>
         </div>
-        <div id="map" style="width: 1200px; height: 500px"></div>
+        <div id="map"></div>
         <div id="elevation_chart" class="hidden"></div>
+        <div id="SpeedChartDiv" class="hidden"></div>
       </div>
-
-      <div id="SpeedChartDiv" style="width: 900px; height: 300px"></div>
-      <div id="BattChartDiv" style="width: 900px; height: 300px"></div>
-      <div id="DataDiv" style="width: 900px; height: 400px"></div>
 
     </div>
     <script async defer
