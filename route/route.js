@@ -103,7 +103,7 @@ function UpDateAll(){
         Pod[4].DoChart = 0;
         Pod[5].DoChart = 0;
         DoBattChart = false;
-        
+
     ArrangePodsToChart();
     GetCornerPolyline();
     CalculateCorners();
@@ -143,7 +143,7 @@ function MarkerDragFinished(MarkNum, MarkPos){ // this will redraw the markers t
 
 function setRadius(){
     CnrRadius[SelectMarker] = document.getElementById('curveradius').value
-    
+
     //AdjustCurve(MarkNum, MarkPos);
     CalculateCorners();
     MakeRoute();
@@ -188,14 +188,14 @@ function displayPathElevation(path, elevator, map) {
 // Takes an array of ElevationResult objects, draws the path on the map
 // and plots the elevation profile on a Visualization API ColumnChart.
 function plotElevation(elevations, status) {
-  const chartDiv = $('#elevation_chart')[0];
+  const chartDiv = $('#elevationChartDiv')[0];
   if (status !== 'OK') {
     // Show the error code inside the chartDiv.
     chartDiv.innerHTML = 'Cannot show elevation: request failed because ' +
         status;
     return;
   }
-  // Create a new chart in the elevation_chart DIV.
+  // Create a new chart in the elevationChartDiv DIV.
   const chart = new google.visualization.ColumnChart(chartDiv);
 
   // Extract the data from which to populate the chart.
@@ -211,7 +211,6 @@ function plotElevation(elevations, status) {
 
   // Draw the chart using the data within its DIV.
   chart.draw(data, {
-    height: 150,
     legend: 'none',
     titleY: 'Elevation (m)'
   });
@@ -224,7 +223,7 @@ function addLatLng(event) {
   // Because path is an MVCArray, we can simply append a new coordinate
   // and it will automatically appear.
   path.push(event.latLng);
- // Send new route to backend 
+ // Send new route to backend
   updateRoute();
 }
 
@@ -417,7 +416,7 @@ function SetMarkers(){ // Sets the posotion of the curve handle markers on the a
         google.maps.event.addListener(marker, "dragend", function(){
             MarkerDragFinished(this.zIndex, this.getPosition());
         });
-        
+
         google.maps.event.addListener(marker, "click", function(){
             MarkerClick(this.zIndex, this.getPosition());
             //console.log("marker id", this.zIndex, "pos", MarkPos.lat());
@@ -678,7 +677,7 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
     function DrawSpeedChart() {
         var SpeedDataTable = new google.visualization.DataTable();
         SpeedDataTable = google.visualization.arrayToDataTable(SpeedChartArray);
-        
+
         //console.log(SpeedChartArray)
 
         var SpeedChartOptions = {
@@ -687,8 +686,6 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
             },
             hAxis: {textPosition : 'in'},
             vAxis: {title: "Speed km/h"},
-            width: 1200,
-            height: 270
         };
         var SpeedChart = new google.charts.Line(SpeedChartDiv);
         SpeedChart.draw(SpeedDataTable, SpeedChartOptions);
@@ -1004,7 +1001,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function toggleSettings() {
     const settings = $('#settings');
     settings.toggleClass('hidden');
-    const chart = $('#elevation_chart');
+    const chart = $('#charts');
     const mapContainer = $('#mapcontainer');
     if (!chart.hasClass('hidden') && !settings.hasClass('hidden')) {
         mapContainer.addClass('all-shown');
@@ -1019,10 +1016,10 @@ function toggleSettings() {
     }, 1100);
 }
 
-function toggleChart(chart_type) {
+function toggleCharts(chart_type) {
     const mapContainer= $('#map');
     mapContainer.toggleClass('chart-shown');
-    const chart = $(chart_type);
+    const chart = $('#charts');
     chart.toggleClass('hidden');
     if (!chart.hasClass('hidden')) {
         setTimeout(function() {

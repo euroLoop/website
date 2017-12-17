@@ -18,7 +18,7 @@ html, body {
 }
 
 #map.chart-shown {
-  height: calc(100% - 150px);
+  height: calc(100% - 200px);
   -webkit-transition: 0.6s;
   -moz-transition: 0.6s;
   -o-transition: 0.6s;
@@ -76,11 +76,12 @@ html, body {
   visibility: hidden;
 }
 
-#elevation_chart {
-  height: 150px;
+#charts {
+  display: flex;
+  height: 200px;
   margin-top: 0px;
-  max-height: 150px;
-  min-height: 150px;
+  max-height: 200px;
+  min-height: 200px;
   overflow: hidden;
   -webkit-transition: 0.6s;
   -moz-transition: 0.6s;
@@ -88,9 +89,9 @@ html, body {
   transition: 0.6s;
 }
 
-#elevation_chart.hidden {
+#charts.hidden {
   height: 0px;
-  margin-top: 150px;
+  margin-top: 200px;
   max-height: 0px;
   min-height: 0px;
   visibility: hidden;
@@ -98,6 +99,11 @@ html, body {
   -moz-transition: 0.6s;
   -o-transition: 0.6s;
   transition: 0.6s;
+}
+
+.chart {
+  width: 50%;
+  height: 200px;
 }
 
 .button-group {

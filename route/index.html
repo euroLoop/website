@@ -11,7 +11,7 @@
     <script src="route.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../js/v3_epoly.js"></script>
     <script src="route.js"></script>
   </head>
@@ -41,12 +41,12 @@
           <label>Pod weight (tons)</label>
           <input class="value" type="text" name="podweight" id="podweight" value="4" size="5">
         </div>
-        
+
         <div class="update-button">
           <input type="button" value="Update" onclick="updateRoute()">
         </div>
         <br>
-        
+
         <div class="setting">
           <label>Track length (km)</label>
           <input readonly class="value" type="text" name="length" id="length" value="1.000.000" size="5">
@@ -68,7 +68,7 @@
           <label>Curve radius</label>
           <input class="value" type="text" name="curveradius" id="curveradius" value="0" size="5">
         </div>
-        
+
         <div class="update-button">
           <input type="button" value="Set radius" onclick="setRadius()">
         </div>
@@ -80,14 +80,16 @@
             <i class="fa fa-cog" aria-hidden="true"></i>
             SETTINGS
           </div>
-          <div class="loop-toggle" onclick="toggleChart('#SpeedChartDiv')">
+          <div class="loop-toggle" onclick="toggleCharts('#SpeedChartDiv')">
             <i class="fa fa-line-chart" aria-hidden="true"></i>
-            CHART1
+            CHART
           </div>
         </div>
         <div id="map"></div>
-        <div id="elevation_chart" class="hidden"></div>
-        <div id="SpeedChartDiv" class="hidden"></div>
+        <div id="charts" class="hidden">
+          <div id="elevationChartDiv" class="chart"></div>
+          <div id="SpeedChartDiv" class="chart"></div>
+        </div>
       </div>
 
     </div>
