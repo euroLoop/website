@@ -98,11 +98,14 @@ function initialize() { // All the setup for the maps, polyines etc. Also the li
 
 function UpDateAll(){
         Pod[1].DoChart = 1;
-        Pod[2].DoChart = 1;
-        Pod[3].DoChart = 1;
+        Pod[2].DoChart = 0;
+        Pod[3].DoChart = 0;
         Pod[4].DoChart = 0;
         Pod[5].DoChart = 0;
         DoBattChart = false;
+
+
+    console.log("Update all")
 
     ArrangePodsToChart();
     GetCornerPolyline();
@@ -526,6 +529,7 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
     function CalcSpeedArray(ThisPod) { //This is a staged process that scans the whole route segments, and works out the limited speed
         RouteDist[0] = 0;
         TotDist = 0;
+        TravelTime = 0;
         for (var i = 1; i < SegmentCount + 1; i++) {
             // makes a stepped graph of speed at max speed and speed limited by the curve radius.
             TotDist += SegLength[i];
@@ -539,7 +543,7 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
 
         InitSpeed = 0; //starting speed m/s
         Times2 = 0;
-        for (i = SegmentCount-1; i > 0; i--) { // does a speed run from the finish, to get the braking profile
+        for (i = SegmentCount; i > 0; i--) { // does a speed run from the finish, to get the braking profile
             SpeedComputation(InitSpeed, SpeedMax[i], SegLength[i], ThisPod, "Decel");
             RevEnergy[i] = EnergyThisSeg;
             RevSegTime[i] = TimeForSeg;
@@ -565,6 +569,7 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
         FwdSegTime[0] = 0;
         FwdEnergy[0] = 0;
 
+        TotTot = 0;
         TotTime = 0;
         EnergyKj = 0;
         for (i = 1; i < SegmentCount + 1; i++) { // compares the forward and reverse speeds, and chooses the slower.
@@ -583,7 +588,8 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
             RouteTime[i] = TotTime;
             EnergyKj += FinalEnergy[i];
         }
-
+        document.getElementById('traveltime').value = Math.floor(TotTime)
+        
         FinalSpeed[0] = 0;
         MaxBattery = 0;
         BatterykWHr = 0;
@@ -640,6 +646,7 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
 
             if (SpeedAtEnd > TargetSpeed) SpeedAtEnd = TargetSpeed;
         }
+        TravelTime = TravelTime + TimeForSeg
     }
 
     // it is hard to add columns to a chart array, so we set it up originally with the required number of columns, 1,2, or 3
@@ -664,7 +671,6 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
                 SpeedChartArray.push([RouteDist[i]/1000, 0, 0, 0]);
             }
         }
-        console.log(SpeedChartArray)
     }
 
     //This is adding the data to the column (pod) to the previously started array
@@ -675,10 +681,19 @@ function reverseAngle (ang) { // used mainly for looking at the angle of a line 
     }
 
     function DrawSpeedChart() {
+
+
         var SpeedDataTable = new google.visualization.DataTable();
         SpeedDataTable = google.visualization.arrayToDataTable(SpeedChartArray);
 
-        //console.log(SpeedChartArray)
+        if(RouteLine.inM() > 150000){
+            //Reduce data by removing continuos datapoints with same value. Speeds up the graph rendering
+            for (var i = 1; i < SpeedDataTable.getNumberOfRows(); i++){
+                if ( SpeedDataTable.getValue(i, 1) == SpeedDataTable.getValue(i-1, 1) ){
+                    SpeedDataTable.removeRow(i)
+                }
+            }
+        }
 
         var SpeedChartOptions = {
             chart: {
@@ -761,28 +776,33 @@ function updateRoute(event){
 
   var length = RouteLine.inM()
   document.getElementById('length').value = length/1000
+  Pod[1].MaxSpeed = document.getElementById('max_velocity').value / 3.6
+  Pod[1].MaxAccelMss = document.getElementById('accelleration').value * 9.82
+  Pod[1].MaxCornerMss = document.getElementById('cornering_accelleration').value * 9.82
 
   var xhr = new XMLHttpRequest();
   var url = "https://euroloop-route.herokuapp.com/request";
   xhr.open("POST", url, true);
 
-  var vel = parseInt( document.getElementById('vel').value )
+  UpDateAll()
+
+  var vel = parseInt( document.getElementById('max_velocity').value )
   var throughput = parseInt( document.getElementById('throughput').value )
   var diameter = parseFloat( document.getElementById('diameter').value )
   var loadingtime = parseFloat( document.getElementById('loadingtime').value )
 
-  var data = JSON.stringify({"length": length, "velocity": vel, "throughput": throughput, "diameter": diameter, "loadingtime": loadingtime});
+  var data = JSON.stringify({"length": length, "velocity": vel, "travel_time": TotTime,  "throughput": throughput, "diameter": diameter, "loadingtime": loadingtime});
 
   xhr.onreadystatechange = function() {//Call a function when the response is received.
       if(xhr.readyState == 4 && xhr.status == 200) {
           console.log(xhr.responseText);
           var jsonResponse = JSON.parse(xhr.responseText);
           document.getElementById('nrPods').value = jsonResponse.nrpods
-          document.getElementById('traveltime').value = jsonResponse.traveltime
           document.getElementById('capex').value = jsonResponse.capex/1000000
       }
   }
   xhr.send(data);
+
 }
 
 /**
@@ -813,7 +833,7 @@ var NumRoutePts = 0;
 var SelectMarker = 0;
 
 var DefaultRadius = 40000 // the radius when we make a new vertex. may end up smaller to fit the line
-var MinRadius = 500 // dont allow for small radii
+var MinRadius = 5 // dont allow for small radii
 var MinSegmentAngle = 10 // the mimimum angle for the curve segment lines.
 var MinDrawSegLgth = 1000 //the min length of a segment
 var MinSpeedLineLgth = 200// the distance apart of the speed array points. Speed will be calc for each distance
@@ -825,6 +845,7 @@ var HandleFromCurve = 20//pixels distance from the curve edge
         var TotTime = 0;
         var EnergyThisSeg = 0;
         var MaxBattery = 0;
+        var TravelTime = 0;
 
         var SectionsCount = 0;
         SectsLen = new Array (0);
@@ -854,7 +875,7 @@ var HandleFromCurve = 20//pixels distance from the curve edge
             Name: "Container Freight Carrier",
             MaxSpeed: 500 / 3.6,  // m/sec
             MaxCornerMss: 9.81 * 0.5, // m/sec2
-            MaxAccelMss: 9.81 * 0.15,
+            MaxAccelMss: 9.81 * 0.25,
             Mass: 20000,
             MaxPower: 3500, // total kW for the 4 motors
             MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton

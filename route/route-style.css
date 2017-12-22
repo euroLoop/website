@@ -53,8 +53,8 @@ html, body {
 }
 
 #settings {
-  max-width: 200px;
-  min-width: 200px;
+  max-width: 250px;
+  min-width: 250px;
   background: #434142;
   color: white;
   -webkit-transition: 0.6s;

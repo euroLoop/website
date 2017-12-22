@@ -19,8 +19,16 @@
     <div class="columns full-page">
       <div id="settings">
         <div class="setting">
-          <label>Velocity (km/h)</label>
-          <input class="value" type="text" name="vel" id="vel" value="600" size="5">
+          <label>Max Velocity (km/h)</label>
+          <input class="value" type="text" name="max_velocity" id="max_velocity" value="500" size="5">
+        </div>
+        <div class="setting">
+          <label>Accelleration (g)</label>
+          <input class="value" type="text" name="accelleration" id="accelleration" value="0.25" size="5">
+        </div>
+        <div class="setting">
+          <label>Max Cornering (g)</label>
+          <input class="value" type="text" name="cornering_accelleration" id="cornering_accelleration" value="0.5" size="5">
         </div>
         <div class="setting">
           <label>
@@ -39,7 +47,7 @@
         </div>
         <div class="setting">
           <label>Pod weight (tons)</label>
-          <input class="value" type="text" name="podweight" id="podweight" value="4" size="5">
+          <input class="value" type="text" name="podweight" id="podweight" value="20" size="5">
         </div>
 
         <div class="update-button">
@@ -60,7 +68,7 @@
           <input readonly class="value" type="text" name="nrPods" id="nrPods" value="17" size="5">
         </div>
         <div class="setting">
-          <label>Travel time (mins)</label>
+          <label>Travel time (sec)</label>
           <input readonly class="value" type="text" name="traveltime" id="traveltime" value="15" size="5">
         </div>
         <br>
