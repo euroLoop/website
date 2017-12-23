@@ -1225,13 +1225,13 @@ body.landing #header {
 
 #banner {
   padding-right: 60px;
-  padding-top: 100px;
-  background: url("../images/layout/cargo-pod-2_crop.jpg");
-  background-position: center;
+  padding-top: 10px;
+  background: url("../images/layout/main_background_3.jpg");
+  background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
   color: #ffffff;
-  padding: 10em 0em 21em;
+  padding: 21em 0em 22em;
   text-align: center;
 }
 
@@ -1311,6 +1311,11 @@ footer .row section {
   padding: 0;
 }
 
+
+.wrapper2 {
+  padding: 2em 0em 4em;
+  padding-bottom: 4em;
+}
 
 /* Footer */
 
