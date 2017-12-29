@@ -29,7 +29,13 @@ function initialize() { // All the setup for the maps, polyines etc. Also the li
     var deleteMenu = new DeleteMenu();
 
     google.maps.event.addListener(CornerPoly.getPath(), 'set_at', UpDateAll); //GetCornerPolyline);
-    google.maps.event.addListener(CornerPoly.getPath(), 'insert_at', UpDateAll); //GetCornerPolyline);
+    google.maps.event.addListener(CornerPoly.getPath(), 'insert_at', function(event){
+    
+        for(i=NumCorners; i>event; i--){
+            CnrRadius[i] = CnrRadius[i-1] //move radii to correct spot in array
+        }
+        UpDateAll()    
+    }); //GetCornerPolyline);
 
     google.maps.event.addListener(CornerPoly, 'rightclick', function(e) {
         // Check if click was on a vertex control point
@@ -47,11 +53,23 @@ function initialize() { // All the setup for the maps, polyines etc. Also the li
         if(event.vertex != null){
             var path = this.getPath();
             path.removeAt(event.vertex);
+            adjustRadii(event.vertex) //move radii to correct spot in array
+            CnrRadius[0] = 0;
+            CnrRadius[1] = 0;
+            if(event.vertex == NumCorners-1){
+                CnrRadius[NumCorners-1] = 0 //if last vertex in path is deleted
+            }
+
             UpDateAll();
             updateRoute();
         }
     });
 
+    function adjustRadii(vertex){
+        for(i=vertex+1; i<NumCorners; i++){
+            CnrRadius[i] = CnrRadius[i+1]
+        }
+    }
 
     //CnrPt = new Array(PtLatLong);
     CnrPt = new Array(google.maps.LatLng(10,10));
@@ -246,6 +264,7 @@ function AdjustCurve(MarkNum, MarkPos){ //Adjusts the curve radius when the hand
        else CnrRadius[MarkNum] = MinRadius;
    }
    else {
+        console.log("Set radius zero")
        CnrSetRadZero[MarkNum] = true;
        CnrRadius[MarkNum] = 0;
    }
@@ -298,7 +317,7 @@ function MakeRoute() { // scans thru all the lines and makes the route array
 }
 
 function MakeCurve(a){ // this is calculating the arc for the corner radius. Sets the construction pts in Cnr[a]
-    console.log("make curve", a, " ", CnrRadius[a]);
+    //console.log("make curve", a, " ", CnrRadius[a]);
 
     if (CnrRadius[a] === 0) {
         CnrRadius[a] = DefaultRadius;
@@ -339,7 +358,7 @@ function CalcAngles(a) {
 
     if (BisAng > 360) BisAng = BisAng - 360;
     else if (BisAng < 0) BisAng = 360 + BisAng;
-
+    //console.log("Ang change " + a + ": " + AngChange)
     CnrAngChange[a] = AngChange;
     CnrBisAng[a] = BisAng;
 }
@@ -351,11 +370,14 @@ function CalculateCorners() {
     for (a = 2; a < NumCorners; a++){
         // Calc Bisector angle of the line that bisects the lines at a point, the arc center is on this line
         CalcAngles(a);
-        console.log("decision CnrSetRadZero = ", CnrSetRadZero[a], (Math.abs(CnrAngChange[a]) > 10),(CnrSetRadZero[a] !== true) );
-        if ((Math.abs(CnrAngChange[a]) > 10) && (CnrSetRadZero[a] !== true)) { //dont do tight angles or when we have set a stop
+        //console.log("decision CnrSetRadZero = ", CnrSetRadZero[a], (Math.abs(CnrAngChange[a]) > 1),(CnrSetRadZero[a] !== true) );
+        if ( (CnrSetRadZero[a] !== true)) { //dont do tight angles or when we have set a stop
             MakeCurve(a); // now do the curve calculations
         }
-        else CnrRadius[a] = 0
+        else {
+            console.log("CC set radius zero")
+            CnrRadius[a] = 0
+        }
     }
 }
 
@@ -373,8 +395,11 @@ function GetCornerPolyline() { //Makes the corner array points lat and long from
         x = NewPath.getAt(i).lng();
         //console.log("in get y,x", y, x, "type", typeof(y));
         CnrPt[i + 1] = new google.maps.LatLng(y, x); // our corners start from number 1 and go to NumCorners
-        CnrRadius[i + 1] = 0;
+        if (!CnrRadius[i + 1] > 0){
+            CnrRadius[i + 1] = 0;
+        }
     }
+    CnrRadius[NumCorners+1] = 0
 }
 
 
