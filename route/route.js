@@ -812,6 +812,7 @@ Pod[1].MaxSpeed = document.getElementById('max_velocity').value / 3.6
 Pod[1].MaxAccelMss = document.getElementById('accelleration').value * 9.82
 Pod[1].MaxCornerMss = document.getElementById('cornering_accelleration').value * 9.82
 Pod[1].MaxPower = document.getElementById('max_power').value
+Pod[1].Mass = document.getElementById('podweight').value * 1000
 
 var xhr = new XMLHttpRequest();
 var url = "https://euroloop-route.herokuapp.com/request";
