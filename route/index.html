@@ -49,6 +49,10 @@
           <label>Pod weight (tons)</label>
           <input class="value" type="text" name="podweight" id="podweight" value="20" size="5">
         </div>
+        <div class="setting">
+          <label>Pod motor power (kW)</label>
+          <input class="value" type="text" name="max_power" id="max_power" value="3500" size="5">
+        </div>
 
         <div class="update-button">
           <input type="button" value="Update" onclick="updateRoute()">
@@ -81,7 +85,22 @@
           <input type="button" value="Set radius" onclick="setRadius()">
         </div>
 
+        <div class="dropdown">
+          <button onclick="showMenu(1)" class="dropbtn">Chart 1</button>
+          <div id="dropdown_menu1" class="dropdown-content">
+            <a onclick="setChart(1, 'elevation')">Elevation</a>
+          </div>
+        </div> 
+
+        <div class="dropdown">
+          <button onclick="showMenu(2)" class="dropbtn">Chart 2</button>
+          <div id="dropdown_menu2" class="dropdown-content">
+            <a onclick="setChart(2, 'speed')">Speed</a>
+            <a onclick="setChart(2, 'battery')">Battery</a>
+          </div>
+        </div> 
       </div>
+
       <div id="mapcontainer">
         <div class="button-group">
           <div class="loop-toggle" onclick="toggleSettings()">
@@ -95,8 +114,8 @@
         </div>
         <div id="map"></div>
         <div id="charts" class="hidden">
-          <div id="elevationChartDiv" class="chart"></div>
-          <div id="SpeedChartDiv" class="chart"></div>
+          <div id="ChartDiv1" class="chart"></div>
+          <div id="ChartDiv2" class="chart"></div>
         </div>
       </div>
 
