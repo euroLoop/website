@@ -237,16 +237,75 @@ function plotElevation(elevations, status) {
     titleY: 'Elevation (m)'
   });
 }
+/*
+var jsonRoute = ''{ 
+    name: "DCT",
+    coords: [ {lat: 53.23213, lng: 17.989343}, {lat: 53.23213, lng: 17.989343}, {lat: 53.23213, lng: 17.989343} ],
+    radius: [4325, 23, 984] 
+}'';
+*/
+var routeData = Array(0);
 
+routeData[0] = {lat: 53.60839590747473, lng: 17.966766357421875 , rad: 0};
+routeData[1] = {lat: 53.63914245775626, lng: 18.00556182861328 , rad: 0};
+routeData[2] = {lat: 53.61084016126085, lng: 18.040237426757812 , rad: 50.3148315675382};
+routeData[3] = {lat: 53.65766102029801, lng: 18.077316284179688 , rad: 500.5101629942096};
+routeData[4] = {lat: 53.61552458556542, lng: 18.149757385253906 , rad: 1838.5560641069246};
+
+function saveRoute() {
+
+    var routeData = Array(0)
+
+    var path = CornerPoly.getPath();
+
+    for (var i=0; i<path.length; i++){
+        routeData[i] = {lat:path.getAt(i).lat(), lng:path.getAt(i).lng(), rad:CnrRadius[i]}
+    }
+
+    route = {name:"Demo route", segments: routeData}
+
+    data = JSON.stringify(route)
+
+    var xhr = new XMLHttpRequest();
+    var url = "https://euroloop-route.herokuapp.com/saveroute";
+    xhr.open("POST", url, true);
+
+    xhr.send(data)
+
+    console.log("DATA: " + data)
+}
+
+function loadRoute() {
+
+    var path = CornerPoly.getPath();
+
+    if (path.length > 0){
+        clearRoute();
+    }
+
+    for (var i = 0; i < routeData.length; i++) {
+
+        var latlng = new google.maps.LatLng(routeData[i].lat, routeData[i].lng);
+        path.push(latlng);
+        CnrRadius[i] = routeData[i].rad;
+    }
+    UpDateAll();
+    updateRoute();
+}
 
 // Handles click events on a map, adds a new point to the Polyline and updates elevation graph.
 function addLatLng(event) {
-  var path = CornerPoly.getPath();
-  // Because path is an MVCArray, we can simply append a new coordinate
-  // and it will automatically appear.
-  path.push(event.latLng);
- // Send new route to backend
-  updateRoute();
+    var path = CornerPoly.getPath();
+    // Because path is an MVCArray, we can simply append a new coordinate
+    // and it will automatically appear.
+    console.log(routeData)
+    path.push(event.latLng);
+    for (var i = 0; i < path.length; i++) {
+        console.log(path.getAt(i).lat() + ", " + path.getAt(i).lng(), ", " + CnrRadius[i])
+    }
+
+    // Send new route to backend
+    updateRoute();
 }
 
 function AdjustCurve(MarkNum, MarkPos){ //Adjusts the curve radius when the handle is moved by the mouse
@@ -682,14 +741,12 @@ function SetupSpeedChartArray(){
         for (var i = 0; i < SegmentCount+1; i++) {
             SpeedChartArray.push([RouteDist[i]/1000, 0]);
         }
-
     }
     else if(NumPodsToChart === 2){
         SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name]];
         for (var i = 0; i < SegmentCount+1; i++) {
             SpeedChartArray.push([RouteDist[i]/1000, 0, 0]);
         }
-
     }
     else if(NumPodsToChart === 3){
         SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name, Pod[ChartPod[3]].Name]];
@@ -731,6 +788,7 @@ function DrawSpeedChart() {
         },
         hAxis: {textPosition : 'in'},
         vAxis: {title: "Speed km/h"},
+        curveType: 'function'
     };
     if (DoSpeedChart){
         var SpeedChart = new google.charts.Line(ChartDiv2);
@@ -873,111 +931,111 @@ var MinDrawSegLgth = 1000 //the min length of a segment
 var MinSpeedLineLgth = 200// the distance apart of the speed array points. Speed will be calc for each distance
 var HandleFromCurve = 20//pixels distance from the curve edge
 
-    var TotDist = 0;
-    var SpeedAtEnd = 0;
-    var TimeForSeg = 0;
-    var TotTime = 0;
-    var EnergyThisSeg = 0;
-    var MaxBattery = 0;
-    var TravelTime = 0;
+var TotDist = 0;
+var SpeedAtEnd = 0;
+var TimeForSeg = 0;
+var TotTime = 0;
+var EnergyThisSeg = 0;
+var MaxBattery = 0;
+var TravelTime = 0;
 
-    var SectionsCount = 0;
-    SectsLen = new Array (0);
-    SectsRad = new Array (0);
+var SectionsCount = 0;
+SectsLen = new Array (0);
+SectsRad = new Array (0);
 
-    var SegmentCount = 0;
-    SegLength = new Array (0);
-    RouteDist = new Array(0);
-    SegRadius = new Array (0);
-    SpeedMax = new Array (0); // the speed limited by curve speed and pod max speed.
-    RevSpeed = new Array (0); // the speed now calc from the reverse run
-    RevSegTime = new Array (0);
-    RevEnergy = new Array (0);
-    FwdSpeed = new Array (0);// the speed now calc from the forward run
-    FwdSegTime = new Array (0);
-    FwdEnergy = new Array (0);
-    FinalSpeed = new Array (0);// the speed now calc from the forward run
-    FinalSegTime = new Array (0);
-    RouteTime = new Array(0);
-    FinalEnergy = new Array (0);
+var SegmentCount = 0;
+SegLength = new Array (0);
+RouteDist = new Array(0);
+SegRadius = new Array (0);
+SpeedMax = new Array (0); // the speed limited by curve speed and pod max speed.
+RevSpeed = new Array (0); // the speed now calc from the reverse run
+RevSegTime = new Array (0);
+RevEnergy = new Array (0);
+FwdSpeed = new Array (0);// the speed now calc from the forward run
+FwdSegTime = new Array (0);
+FwdEnergy = new Array (0);
+FinalSpeed = new Array (0);// the speed now calc from the forward run
+FinalSegTime = new Array (0);
+RouteTime = new Array(0);
+FinalEnergy = new Array (0);
 
 
-    Pod = new Array(0);
-    var NumPods = 5;
+Pod = new Array(0);
+var NumPods = 5;
 
-    Pod[1]={
-        Name: "Container Freight Carrier",
-        MaxSpeed: 500 / 3.6,  // m/sec
-        MaxCornerMss: 9.81 * 0.5, // m/sec2
-        MaxAccelMss: 9.81 * 0.25,
-        Mass: 20000,
-        MaxPower: 3500, // total kW for the 4 motors
-        MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
-        TireLiftDrag: 150,
-        AeroDrag: 500, // drag, N at max speed
-        NumPax: 1,
-        DoChart: 0
-    };
+Pod[1]={
+    Name: "Container Freight Carrier",
+    MaxSpeed: 500 / 3.6,  // m/sec
+    MaxCornerMss: 9.81 * 0.5, // m/sec2
+    MaxAccelMss: 9.81 * 0.25,
+    Mass: 20000,
+    MaxPower: 3500, // total kW for the 4 motors
+    MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+    TireLiftDrag: 150,
+    AeroDrag: 500, // drag, N at max speed
+    NumPax: 1,
+    DoChart: 0
+};
 
-    Pod[2]={
-        Name: "Cheetah 1,000kmh 3,500kW",
-        MaxSpeed: 1000 / 3.6,  // m/sec
-        MaxCornerMss: 9.81 * 0.5, // m/sec2
-        MaxAccelMss: 9.81 * 0.3,
-        Mass: 10000,
-        MaxPower: 3500, // total kW for the 4 motors
-        MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
-        TireLiftDrag: 150,
-        AeroDrag: 500, // drag, N at max speed
-        NumPax: 27,
-        DoChart: 0
-    };
+Pod[2]={
+    Name: "Cheetah 1,000kmh 3,500kW",
+    MaxSpeed: 1000 / 3.6,  // m/sec
+    MaxCornerMss: 9.81 * 0.5, // m/sec2
+    MaxAccelMss: 9.81 * 0.3,
+    Mass: 10000,
+    MaxPower: 3500, // total kW for the 4 motors
+    MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+    TireLiftDrag: 150,
+    AeroDrag: 500, // drag, N at max speed
+    NumPax: 27,
+    DoChart: 0
+};
 
-    Pod[3]={
-        Name: "Cheetah 600kmh 2,000kW",
-        MaxSpeed: 600 / 3.6,  // m/sec
-        MaxCornerMss: 9.81 * 0.3, // m/sec2
-        MaxAccelMss: 9.81 * 0.2,
-        Mass: 10000,
-        MaxPower: 2000, // total kW for the 4 motors
-        MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
-        TireLiftDrag: 150,
-        AeroDrag: 500, // drag, N at max speed
-        NumPax: 27,
-        DoChart: 0
-    };
+Pod[3]={
+    Name: "Cheetah 600kmh 2,000kW",
+    MaxSpeed: 600 / 3.6,  // m/sec
+    MaxCornerMss: 9.81 * 0.3, // m/sec2
+    MaxAccelMss: 9.81 * 0.2,
+    Mass: 10000,
+    MaxPower: 2000, // total kW for the 4 motors
+    MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+    TireLiftDrag: 150,
+    AeroDrag: 500, // drag, N at max speed
+    NumPax: 27,
+    DoChart: 0
+};
 
-    Pod[4]={
-        Name: "High speed rail",
-        MaxSpeed: 200 / 3.6,  // m/sec
-        MaxCornerMss: 9.81 * 0.05, // m/sec2
-        MaxAccelMss: 9.81 * 0.05,
-        Mass: 10000,
-        MaxPower: 2000, // total kW for the 4 motors
-        MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
-        TireLiftDrag: 150,
-        AeroDrag: 500, // drag, N at max speed
-        NumPax: 27,
-        DoChart: 0
-    };
+Pod[4]={
+    Name: "High speed rail",
+    MaxSpeed: 200 / 3.6,  // m/sec
+    MaxCornerMss: 9.81 * 0.05, // m/sec2
+    MaxAccelMss: 9.81 * 0.05,
+    Mass: 10000,
+    MaxPower: 2000, // total kW for the 4 motors
+    MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+    TireLiftDrag: 150,
+    AeroDrag: 500, // drag, N at max speed
+    NumPax: 27,
+    DoChart: 0
+};
 
-    Pod[5]={
-        Name: "Maglev Shanghai Transrapid",
-        MaxSpeed: 400 / 3.6,  // m/sec
-        MaxCornerMss: 9.81 * 0.05, // m/sec2
-        MaxAccelMss: 9.81 * 0.1,
-        Mass: 10000,
-        MaxPower: 1000, // total kW for the 4 motors
-        MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
-        TireLiftDrag: 150,
-        AeroDrag: 500, // drag, N at max speed
-        NumPax: 27,
-        DoChart: 0
-    };
+Pod[5]={
+    Name: "Maglev Shanghai Transrapid",
+    MaxSpeed: 400 / 3.6,  // m/sec
+    MaxCornerMss: 9.81 * 0.05, // m/sec2
+    MaxAccelMss: 9.81 * 0.1,
+    Mass: 10000,
+    MaxPower: 1000, // total kW for the 4 motors
+    MotorEff: .85, // effciency increases used pwr on accel, reduces regeneraton
+    TireLiftDrag: 150,
+    AeroDrag: 500, // drag, N at max speed
+    NumPax: 27,
+    DoChart: 0
+};
 
-    var ChartPod = new Array(0); // the list of up to 3 charts to draw
-    var NumPodsToChart = 0;
-    var ThisPod = p = 0;
+var ChartPod = new Array(0); // the list of up to 3 charts to draw
+var NumPodsToChart = 0;
+var ThisPod = p = 0;
 
 
 DeleteMenu.prototype = new google.maps.OverlayView();
@@ -1085,6 +1143,13 @@ window.onclick = function(event) {
       }
     }
   }
+}
+
+function clearRoute(){
+    CnrRadius = new Array(0)
+    CornerPoly.getPath().clear()
+    UpDateAll()
+    updateRoute()
 }
 
 function toggleSettings() {

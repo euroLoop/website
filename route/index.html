@@ -107,10 +107,27 @@
             <i class="fa fa-cog" aria-hidden="true"></i>
             SETTINGS
           </div>
+          
           <div class="loop-toggle" onclick="toggleCharts('#SpeedChartDiv')">
             <i class="fa fa-line-chart" aria-hidden="true"></i>
             CHART
           </div>
+
+          <div class="loop-toggle" onclick="clearRoute()">
+            <i aria-hidden="true"></i>
+            CLEAR ALL
+          </div>
+
+          <div class="loop-toggle" onclick="saveRoute()">
+            <i aria-hidden="true"></i>
+            SAVE ROUTE
+          </div>
+
+          <div class="loop-toggle" onclick="loadRoute()">
+            <i aria-hidden="true"></i>
+            LOAD ROUTE
+          </div>
+
         </div>
         <div id="map"></div>
         <div id="charts" class="hidden">
