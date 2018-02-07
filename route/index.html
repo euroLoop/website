@@ -10,10 +10,8 @@
     <script src="https://www.google.com/jsapi"></script>
     <script src="route.js"></script>
     <script src="../js/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApIAsaS26KlgRRhBAeYlsTofi2Kbc1xvQ"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../js/v3_epoly.js"></script>
-    <script src="route.js"></script>
   </head>
   <body>
     <div class="columns full-page">
@@ -90,7 +88,7 @@
           <div id="dropdown_menu1" class="dropdown-content">
             <a onclick="setChart(1, 'elevation')">Elevation</a>
           </div>
-        </div> 
+        </div>
 
         <div class="dropdown">
           <button onclick="showMenu(2)" class="dropbtn">Chart 2</button>
@@ -98,11 +96,20 @@
             <a onclick="setChart(2, 'speed')">Speed</a>
             <a onclick="setChart(2, 'battery')">Battery</a>
           </div>
-        </div> 
+        </div>
       </div>
 
       <div id="mapcontainer">
         <div class="button-group">
+          <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=137857628480.302386028709">
+            <img
+              alt="Sign in with Slack"
+              height="40"
+              width="172"
+              src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
+              srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"
+            />
+          </a>
           <div class="loop-toggle" onclick="toggleSettings()">
             <i class="fa fa-cog" aria-hidden="true"></i>
             SETTINGS
