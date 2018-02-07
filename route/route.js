@@ -114,6 +114,7 @@ function initialize() { // All the setup for the maps, polyines etc. Also the li
     // Create an ElevationService.
     elevator = new google.maps.ElevationService;
 
+    getRouteNames()
     //UpdateAll(); not working??
 }
 
@@ -252,6 +253,38 @@ routeData[2] = {lat: 53.61084016126085, lng: 18.040237426757812 , rad: 50.314831
 routeData[3] = {lat: 53.65766102029801, lng: 18.077316284179688 , rad: 500.5101629942096};
 routeData[4] = {lat: 53.61552458556542, lng: 18.149757385253906 , rad: 1838.5560641069246};
 
+function getRouteNames() {
+
+    var xhr = new XMLHttpRequest();
+    var url = "https://euroloop-route.herokuapp.com/getroutenames";
+    xhr.open("POST", url, true);
+
+    xhr.onreadystatechange = function() {//Call a function when the response is received.
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+            var jsonResponse = JSON.parse(xhr.responseText);
+            console.log(jsonResponse);
+            routeList = jsonResponse;
+
+            var select = document.getElementById("dropdown_menu3"); 
+
+            for(var i = 0; i < routeList.length; i++) {
+                
+                var opt = routeList[i];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = opt;
+                el.id = i;
+                el.addEventListener('click', function(event) { 
+                    loadRoute(event.target.id);
+                }, false);
+                select.appendChild(el);
+            }
+        }
+    }
+    xhr.send();
+}
+
 function saveRoute() {
 
     var routeData = Array(0)
@@ -275,12 +308,30 @@ function saveRoute() {
     console.log("DATA: " + data)
 }
 
-function loadRoute() {
+function loadFakeRoute(i){
+    console.log("LOAD FAKE: " + i)
+}
+
+function loadRoute(i) {
 
     var path = CornerPoly.getPath();
 
     if (path.length > 0){
         clearRoute();
+    }
+
+    data = JSON.stringify( {"id": i} )
+
+    var xhr = new XMLHttpRequest();
+    var url = "https://euroloop-route.herokuapp.com/loadroute";
+    xhr.open("POST", url, true);
+
+    xhr.send(data)
+
+    xhr.onreadystatechange = function() {//Call a function when the response is received.
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+        }
     }
 
     for (var i = 0; i < routeData.length; i++) {
@@ -918,6 +969,7 @@ var map; //declare this here to make map a global
 var RouteLine = [];
 var CornerPoly = [];
 var markers = [];
+var routeList = Array(0)
 
 var NumCorners = 0;
 var NumRoutePts = 0;
@@ -1109,7 +1161,7 @@ DeleteMenu.prototype.removeVertex = function() {
     this.close();
 };
 
-google.maps.event.addDomListener(window, 'load', initialize);
+//google.maps.event.addDomListener(window, 'load', initialize);
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
