@@ -107,7 +107,7 @@ const translations = {
 			'oraz operacji. W przyszłości, gdy system towarowy zostanie wdrożony ' +
 			'i należycie przetestowany, planowana jest wersja pasażerska.',
 		'euroloop-about-part2':
-			'Współzałożyciele EUROLOOP brali udział w pierwszym, corocznym konkursie ' +
+			'Współzałożyciele EUROLOOP brali udział w inauguracyjnym, corocznym konkursie ' +
 			'SpaceX Hyperloop Pod Competition i zdobyli jedną z pięciu głównych nagród - ' +
 			'nagrodę za Innowację, jako jedna z 1200 drużych z całego świata. ' +
 			'Zespół, którego byli członkami, był jedynym nieuniwersyteckim zespołem w ' +
