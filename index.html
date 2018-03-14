@@ -14,6 +14,16 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/skel.min.js"></script>
 	<script src="js/skel-layers.min.js"></script>
+	<script src="js/lib/url.min.js"></script>
+	<!--I18N-->
+	<script src="js/lib/CLDRPluralRuleParser/CLDRPluralRuleParser.js"></script>
+	<script src="js/lib/jquery.i18n.js"></script>
+	<script src="js/lib/jquery.i18n.messagestore.js"></script>
+	<script src="js/lib/jquery.i18n.fallbacks.js"></script>
+	<script src="js/lib/jquery.i18n.parser.js"></script>
+	<script src="js/lib/jquery.i18n.emitter.js"></script>
+	<script src="js/lib/jquery.i18n.language.js"></script>
+	<!--/I18N-->
 	<script src="js/init.js"></script>
 	<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
@@ -31,17 +41,17 @@
 			<h1 class="animate-nav"><a href=""><img class="main-small-logo-grey" src="images/layout/small_logo_grey.png"></img></a></h1>
 			<nav id="nav" class="animate-nav">
 				<ul>
-					<li><a href="#one">About</a></li>
+					<li><a href="#one" data-i18n="euroloop-navbar-about"></a></li>
 					<li class="not-small">|</li>
-					<li><a href="#two">Hyperloop</a></li>
+					<li><a href="#two" data-i18n="euroloop-navbar-hyperloop"></a></li>
 					<li class="not-small">|</li>
-					<li><a href="#three">Team</a></li>
+					<li><a href="#three" data-i18n="euroloop-navbar-team"></a></li>
 					<li class="not-small">|</li>
-					<li><a href="#footer">Contact</a></li>
+					<li><a href="#footer" data-i18n="euroloop-navbar-contact"></a></li>
 					<li class="not-small">|</li>
-					<li><a href="#press">Press</a></li>
+					<li><a href="#press" data-i18n="euroloop-navbar-press"></a></li>
 					<li class="not-small">|</li>
-					<li><a href="#partners">Partners</a></li>
+					<li><a href="#partners" data-i18n="euroloop-navbar-partners"></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -52,47 +62,42 @@
 
 	<!-- One -->
 	<section id="one" class="wrapper2 align-center">
-		<div class="container grey-text">
+		<div class="container">
 			<header>
-				<h2>About us</h2>
+				<h2 data-i18n="euroloop-about-title"></h2>
 			</header>
-			EUROLOOP is an e-mobility and infrastructure company based in Poland currently developing an autonomous cargo transportation and handling system based on our unique version of Hyperloop technology. It will use custom technology for the suspension and propulsion systems to reduce cost of development, construction and operation. The passenger version is reserved for the future after the cargo system is deployed and tested.<br><br>
-
-			Previously our founding members participated in the first annual SpaceX Hyperloop Pod Competition and won one out of 5 main awards -  the Innovation award, as one of 1200 teams from all over the world. They were part of the only team in the final stage of the competition not supported by a major university. Since the incorporation people from other teams in the finals joined us to work on EUROLOOP’s vision of the Hyperloop technology.<br><br>
-
-			The initial focus for EUROLOOP are the shortest possible routes that are profitable for cargo transportation and talks are in progress with numerous partners from maritime and energy sectors interested in application of our technology for their needs.<br><br>
+			<p data-i18n="euroloop-about-part1"></p>
+			<p data-i18n="euroloop-about-part2"></p>
+			<p data-i18n="euroloop-about-part3"></p>
 		</div>
 	</section>
 	<section id="two" class="wrapper style1 align-center">
 		<div class="container">
 			<header>
-				<h2>Hyperloop</h2>
-				<p>The future of transportation is arriving.</p>
+				<h2 data-i18n="euroloop-hyperloop-title"></h2>
+				<p data-i18n="euroloop-hyperloop-subtitle"></p>
 			</header>
-			<p>
-				The Hyperloop concept takes the best bits from 3 previous modes of transportation - automotive, air, and rail - combines them, and removes the bad parts. It will have the safety and speed of aircraft, capacity of trains, but with the flexibility of cars.
-				All while remaining low-cost, hassle-free and with a small geographical footprint. It can also, unlike some previous modes, be constructed to look beautiful and to be almost completely silent.
-			</p>
+			<p data-i18n="euroloop-hyperloop-description"></p>
 			<div class="row 200%">
 				<section class="3u 12u$(small)">
 					<img src="images/layout/city-center-icon.png"></img>
-					<h3 class="title">City-center to city-center</h3>
-					<p>The Hyperloop is silent and has a much smaller geographical footprint than an airport. This means a terminal can be constructed in the middle of a city without the noise and space needed for aviation.</p>
+					<h3 class="title" data-i18n="euroloop-hyperloop-city-title"></h3>
+					<p data-i18n="euroloop-hyperloop-city-description"></p>
 				</section>
 				<section class="3u 12u$(small)">
 					<img src="images/layout/logistics-icon.png"></img>
-					<h3 class="title">Faster, cheaper logistics</h3>
-					<p>The euroLoop system will be desiged from the ground up to handle intermodal container logistics. It can change entirely how container terminals at seaports are constructed, making them both cheaper and with greater capacity.</p>
+					<h3 class="title" data-i18n="euroloop-hyperloop-logistics-title"></h3>
+					<p data-i18n="euroloop-hyperloop-logistics-description"></p>
 				</section>
 				<section class="3u 12u$(small)">
 					<img src="images/layout/world-icon.png"></img>
-					<h3 class="title">Making your world bigger</h3>
-					<p>With greatly reduced travel times and city-center to city-center capability, the Hyperloop can greatly increase the area where people can commute to work from their home.</p>
+					<h3 class="title" data-i18n="euroloop-hyperloop-world-title"></h3>
+					<p data-i18n="euroloop-hyperloop-world-description"></p>
 				</section>
 				<section class="3u 12u$(small)">
 					<img src="images/layout/carbon-free-icon.png"></img>
-					<h3 class="title">Carbon free</h3>
-					<p>The Hyperloop is 100% electric. When coupled with renewable energy generation it can be entirely carbon free. It will also have a smaller impact on the landscape where it is build since the tube is contructed on pylons rather than dug into the ground.</p>
+					<h3 class="title" data-i18n="euroloop-hyperloop-carbon-title"></h3>
+					<p data-i18n="euroloop-hyperloop-carbon-description"></p>
 				</section>
 			</div>
 		</div>
@@ -103,7 +108,7 @@
 	<section class="wrapper style4 align-center">
 		<div class="container">
 			<header>
-				<h2>Fastest public transport</h2>
+				<h2 data-i18n="euroloop-hyperloop-fastest-transport"></h2>
 				<img class="hyperloop-graphic" src="images/layout/hyperloop_graphic.png"></img>
 			</header>
 		</div>
@@ -113,7 +118,7 @@
 	<section id="three" class="wrapper style2 align-center">
 		<div class="container">
 			<header>
-				<h2>Team</h2>
+				<h2 data-i18n="euroloop-team-title"></h2>
 			</header>
 			<div class="row">
 				<div class="member" ontouchstart="this.classList.toggle('hover');">
@@ -501,8 +506,7 @@
 	<section id="press" class="wrapper style4 align-center">
 		<div class="container">
 			<header>
-				<h2>Press</h2>
-				<!-- 						<p>More to come.</p> -->
+				<h2 data-i18n="euroloop-press-title"></h2>
 			</header>
 			<div class="press-articles-wrapper clearfix">
 				<article>
@@ -619,7 +623,7 @@
 	<section id="partners" class="wrapper align-center">
 		<div class="container">
 			<header>
-				<h2>Partners</h2>
+				<h2 data-i18n="euroloop-partners-title"></h2>
 			</header>
 			<div class="partners-wrapper clearfix">
 				<article>
@@ -658,7 +662,7 @@
 		<div class="container">
 			<div class="row">
 				<section class="4u$ 12u$(medium) 12u$(small) align-center ">
-					<h3>Contact Us</h3>
+					<h3 data-i18n="euroloop-contact-title"></h3>
 					<ul class="icons">
 						<!-- <li><a href="#" class="icon rounded fa-twitter"><span class="label">Twitter</span></a></li> -->
 						<li><a href="http://www.fb.me/euroLoop" target="_blank" class="icon rounded fa-facebook"><span class="label">Facebook</span></a></li>
@@ -668,7 +672,8 @@
 					</ul>
 					<ul class="details">
 						<li>
-							<h3>Address</h3> Jagiellonska 39, Nowy Sacz, 33-300 Poland
+							<h3 data-i18n="euroloop-contact-address-title"></h3>
+							<div data-i18n="euroloop-contact-address"></div>
 						</li>
 						<li>
 							<h3>Mail</h3>
