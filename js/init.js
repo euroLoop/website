@@ -76,6 +76,61 @@ const translations = {
 		// Team
 		'euroloop-team-title': 'Team',
 
+		'euroloop-team-experience': 'Experience:',
+		'euroloop-team-marek1':
+			'6 years experience in large scale & complex mechanical, thermodynamical ' +
+			'and controls projects.',
+		'euroloop-team-marek2': '1 year experience as Controls Team Leader at rLoop.',
+		'euroloop-team-marek-linkedin': 'Marek on LinkedIn',
+		'euroloop-team-joakim1':
+			'3 years as software engineer building and designing data analytics and ' +
+			'processing systems for telecom.',
+		'euroloop-team-joakim2': '1 year developing advanced image processing systems.',
+		'euroloop-team-joakim3': '1 year as overall software development lead at rLoop.',
+		'euroloop-team-joakim-linkedin':'Joakim on LinkedIn',
+		'euroloop-team-krzeminski':
+			'3 years experience in heading up campaigns as a ' +
+			'Project Manager in advertising agency. 8 years experience in organising ' +
+			'and coordinating international projects within european funds.',
+		'euroloop-team-krzeminski-linkedin': 'Piotr on LinkedIn',
+		'euroloop-team-richard':
+			'15 years developing a range of computerised foam-cutting machines (Wintech Engineering, ' +
+			'Australia). Before that, 16 years making composite yachts and windsurfers. ' +
+			'One-man team who reached the semi-finals in the SpaceX Hyperloop Pod Competition I.',
+		'euroloop-team-piotrowski1':
+			 'PESA: Main Industrial Designer. Head of teams of Industrial Design, ' +
+			 'Interior and Equipment, Coatings and Painting. Creator of over a dozen of ' +
+			 'product lines of trains and trams with over one hundred units manufactured. ' +
+			 'Many of them have received awards in the country and abroad since 2005.',
+		'euroloop-team-piotrowski2':
+			'Academy of Fine Arts in Warsaw: Faculty of Design, design studio: Product ' +
+			'implementation process, specialization: means of transportation. Lecturer and researcher since 2008.',
+		'euroloop-team-szymon':
+			'Master of Science in Mechanical Engineering with specialization in Computer ' +
+			'Aided Engineering from Warsaw University of Technology. Internship at Industrial ' +
+			'Research Institute for Automation and Measurements as Mechanical Engineer ' +
+			'(3D design and flow analysis). 1 year at CERN, R&amp;D engineering (CAD software study). ' +
+			'Currently working in Technology Department in Orchid Orthopedics Switzerland. ' +
+			'Quality control, CAD/CAM and FEM.',
+		'euroloop-team-szymon-linkedin': 'Szymon on LinkedIn',
+		'euroloop-team-aaron':
+			'Project engineer/manager of Purdue Hyperloop team that competed in the first ' +
+			'Hyperloop competition and was one of 7 teams to do the open air test in the ' +
+			'SpaceX tube. B.S. in Aerospace Engineering at Purdue University. Currently ' +
+			'working on Masters in Aerospace Engineering. Performed research throughout ' +
+			'undergrad and grad school in rarefied gas dynamics by modeling flows in DSMC.',
+		'euroloop-team-aaron-linkedin': 'Aaron on LinkedIn',
+		'euroloop-team-czech':
+			'Master in Mechanical Engineering with specialization of Automatic Control ' +
+			'and Robotics from Cracow University of Technology Working as Design Engineer ' +
+			'at CERN in Geneve, Switzerland. 4 years at CERN - providing transport for ' +
+			'all the equipment in HL LHC project ( 3Ddesign & calculation, ordering, ' +
+			'consulting and implementation of transport means). designing online/offline ' +
+			'robot trajectories. Overall solid experience in product design and ' +
+			'development as well as project management.',
+		'euroloop-team-czech-linkedin': 'Michał on LinkedIn',
+
+
 		// Press
 		'euroloop-press-title': 'Press',
 
@@ -154,6 +209,34 @@ const translations = {
 
 		// Team
 		'euroloop-team-title': 'Zespół',
+
+		'euroloop-team-experience': 'Doświadczenie:',
+
+		'euroloop-team-marek1': '<ADD MAREK1>',
+		'euroloop-team-marek2': '<ADD MAREK2>',
+		'euroloop-team-marek-linkedin': 'Marek na LinkedIn',
+		'euroloop-team-joakim1': '<ADD JOAKIM1>',
+		'euroloop-team-joakim2': '<ADD JOAKIM2>',
+		'euroloop-team-joakim3': '<ADD JOAKIM3>',
+		'euroloop-team-joakim-linkedin':'Joakim na LinkedIn',
+		'euroloop-team-krzeminski': '<ADD PIOTR>',
+		'euroloop-team-krzeminski-linkedin': 'Piotr na LinkedIn',
+		'euroloop-team-richard':'<ADD RICHARD>',
+		'euroloop-team-richard':'<ADD RICHARD>',
+		'euroloop-team-piotrowski1':
+			'PESA: Główny projektant wzornictwa, kierownik ' +
+			'zespołów ds.: Wzornictwa przemysłowego, Zabudowy i wyposażenia, Powłok malarskich. ' +
+			'Autor kilkunastu linii produktowych pociągów i tramwajów oraz przeszło stu wdrożeń. ' +
+			'Wiele z nich nagrodzono w kraju i zagranicą. Od 2005.',
+		'euroloop-team-piotrowski2':
+			'Akademia Sztuk Pięknych w Warszawie: Wydział Wzornictwa, pracownia projektowa: Proces ' +
+			'wdrożenia produktu, specjalizacja: środki transportu. Wykładowca i pracownik naukowy od 2008.',
+		'euroloop-team-szymon': '<ADD SZYMON>',
+		'euroloop-team-szymon-linkedin': 'Szymon na LinkedIn',
+		'euroloop-team-aaron': '<ADD AARON>',
+		'euroloop-team-aaron-linkedin': 'Aaron na LinkedIn',
+		'euroloop-team-czech': '<ADD CZECH>',
+		'euroloop-team-czech-linkedin': 'Michał na LinkedIn',
 
 		// Press
 		'euroloop-press-title': 'Prasa',
