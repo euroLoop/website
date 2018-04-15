@@ -276,7 +276,7 @@ function getRouteNames() {
                 el.value = opt;
                 el.id = i;
                 el.addEventListener('click', function(event) { 
-                    loadRoute(event.target.id);
+                    loadRoute(event.target.id, event.target.textContent);
                 }, false);
                 select.appendChild(el);
             }
@@ -295,7 +295,9 @@ function saveRoute() {
         routeData[i] = {lat:path.getAt(i).lat(), lng:path.getAt(i).lng(), rad:CnrRadius[i]}
     }
 
-    route = {name:"Demo route", segments: routeData}
+    routeName = document.getElementById('route_name').value
+
+    route = {name:routeName, segments: routeData}
 
     data = JSON.stringify(route)
 
@@ -312,7 +314,7 @@ function loadFakeRoute(i){
     console.log("LOAD FAKE: " + i)
 }
 
-function loadRoute(i) {
+function loadRoute(i, name) {
 
     var path = CornerPoly.getPath();
 
@@ -320,7 +322,7 @@ function loadRoute(i) {
         clearRoute();
     }
 
-    data = JSON.stringify( {"id": i} )
+    data = JSON.stringify( {"route_id": i, "route_name": name} )
 
     var xhr = new XMLHttpRequest();
     var url = "https://euroloop-route.herokuapp.com/loadroute";
@@ -330,18 +332,30 @@ function loadRoute(i) {
 
     xhr.onreadystatechange = function() {//Call a function when the response is received.
         if(xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText);
+
+            var jsonResponse = JSON.parse(xhr.responseText);
+            console.log(jsonResponse.segments);
+      
+            document.getElementById('route_name').value = jsonResponse.name
+
+            for (var i = 0; i < jsonResponse.segments.length; i++) {
+
+                var latlng = new google.maps.LatLng(jsonResponse.segments[i].lat, jsonResponse.segments[i].lng);
+                path.push(latlng);
+                CnrRadius[i] = jsonResponse.segments[i].rad;
+            }
+            UpDateAll();
+            updateRoute();
         }
     }
 
-    for (var i = 0; i < routeData.length; i++) {
+//    for (var i = 0; i < routeData.length; i++) {
 
-        var latlng = new google.maps.LatLng(routeData[i].lat, routeData[i].lng);
-        path.push(latlng);
-        CnrRadius[i] = routeData[i].rad;
-    }
-    UpDateAll();
-    updateRoute();
+//        var latlng = new google.maps.LatLng(routeData[i].lat, routeData[i].lng);
+//        path.push(latlng);
+//        CnrRadius[i] = routeData[i].rad;
+//    }
+
 }
 
 // Handles click events on a map, adds a new point to the Polyline and updates elevation graph.
