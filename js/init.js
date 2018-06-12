@@ -377,11 +377,11 @@ const translations = {
 
 	$(window).ready(function(){
 		$.i18n().load(translations).done(function() {
-      // $('.switch-locale').on('click', 'a', function(e) {
-      //   e.preventDefault();
-      //   $.i18n().locale = $(this).data('locale');
-			// 	$('body').i18n();
-      // });
+      $('.switch-locale').on('click', 'a', function(e) {
+        e.preventDefault();
+        $.i18n().locale = $(this).data('locale');
+				$('body').i18n();
+      });
 			let locale = url('?locale');
 			if (locale) {
 				$.i18n().locale = locale;
