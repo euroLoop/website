@@ -116,6 +116,16 @@ function initialize() { // All the setup for the maps, polyines etc. Also the li
 
     getRouteNames()
     //UpdateAll(); not working??
+
+    function myFunction() {
+        while (1){
+            var pw = prompt("Please enter password to access restricted content:", "***");
+            if (pw == "Euroloop") {
+                break
+            }     
+        }
+    }
+    myFunction()
 }
 
 function UpDateAll(){
@@ -802,7 +812,7 @@ function SpeedComputation(InitSpeed, TargetSpeed, SegDist, ThisPod, AccelType) {
 // it is hard to add columns to a chart array, so we set it up originally with the required number of columns, 1,2, or 3
 function SetupSpeedChartArray(){
     if (NumPodsToChart ===1){
-        SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name]];
+        SpeedChartArray = [['Pokonany dystans od startu w km', Pod[ChartPod[1]].Name]];
         for (var i = 0; i < SegmentCount+1; i++) {
             SpeedChartArray.push([RouteDist[i]/1000, 0]);
         }
@@ -814,7 +824,7 @@ function SetupSpeedChartArray(){
         }
     }
     else if(NumPodsToChart === 3){
-        SpeedChartArray = [['Distance from start Km', Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name, Pod[ChartPod[3]].Name]];
+        SpeedChartArray = [['Pokonany dystans od startu w km', Pod[ChartPod[1]].Name, Pod[ChartPod[2]].Name, Pod[ChartPod[3]].Name]];
         for (var i = 0; i < SegmentCount+1; i++) {
             SpeedChartArray.push([RouteDist[i]/1000, 0, 0, 0]);
         }
@@ -848,11 +858,10 @@ function DrawSpeedChart() {
     }
 
     var SpeedChartOptions = {
+        titleY: 'Prędkość w km/h',
         chart: {
-            title: 'Pods speed chart vs distance'
+            title: 'Pods speed chart vs distance',
         },
-        hAxis: {textPosition : 'in'},
-        vAxis: {title: "Speed km/h"},
         curveType: 'function'
     };
     if (DoSpeedChart){
