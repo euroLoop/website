@@ -729,7 +729,6 @@ function CalcSpeedArray(ThisPod) { //This is a staged process that scans the who
     FwdSegTime[0] = 0;
     FwdEnergy[0] = 0;
 
-    TotTot = 0;
     TotTime = 0;
     EnergyKj = 0;
     for (i = 1; i < SegmentCount + 1; i++) { // compares the forward and reverse speeds, and chooses the slower.
@@ -945,6 +944,8 @@ Pod[1].MaxAccelMss = document.getElementById('accelleration').value * 9.82
 Pod[1].MaxCornerMss = document.getElementById('cornering_accelleration').value * 9.82
 Pod[1].MaxPower = document.getElementById('max_power').value
 Pod[1].Mass = document.getElementById('podweight').value * 1000
+Pod[1].AeroDrag = document.getElementById('aero_drag').value
+Pod[1].TireLiftDrag = document.getElementById('tire_drag').value
 
 var xhr = new XMLHttpRequest();
 var url = "https://euroloop-route.herokuapp.com/request";
