@@ -747,7 +747,10 @@ function CalcSpeedArray(ThisPod) { //This is a staged process that scans the who
         RouteTime[i] = TotTime;
         EnergyKj += FinalEnergy[i];
     }
-    document.getElementById('traveltime').value = Math.floor(TotTime)
+
+    minutes = Math.floor(TotTime/60)
+    seconds = Math.floor( TotTime - (minutes * 60))
+    document.getElementById('traveltime').value = minutes + ":" + seconds
     
     FinalSpeed[0] = 0;
     MaxBattery = 0;
@@ -911,8 +914,6 @@ function DrawBattChart() {
         BattChart.draw(BattDataTable, BattChartOptions);
     }
 }
-
-
 
 function PrintInfo(ThisPod){
         EnergyKwh = EnergyKj / 3600;
