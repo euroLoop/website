@@ -129,11 +129,6 @@ function initialize() { // All the setup for the maps, polyines etc. Also the li
 }
 
 function UpDateAll(){
-        Pod[1].DoChart = 1;
-        Pod[2].DoChart = 0;
-        Pod[3].DoChart = 0;
-        Pod[4].DoChart = 0;
-        Pod[5].DoChart = 0;
 
     console.log("Update all")
 
@@ -276,7 +271,7 @@ function getRouteNames() {
             console.log(jsonResponse);
             routeList = jsonResponse;
 
-            var select = document.getElementById("dropdown_menu3"); 
+            var select = document.getElementById("dropdown_menu4"); 
 
             for(var i = 0; i < routeList.length; i++) {
                 
@@ -936,40 +931,40 @@ function PrintInfo(ThisPod){
 // Call backend service and update values
 function updateRoute(event){
 
-displayPathElevation(RouteLine.getPath().getArray(), elevator, map);
+    displayPathElevation(RouteLine.getPath().getArray(), elevator, map);
 
-var length = RouteLine.inM()
-document.getElementById('length').value = length/1000
-Pod[1].MaxSpeed = document.getElementById('max_velocity').value / 3.6
-Pod[1].MaxAccelMss = document.getElementById('accelleration').value * 9.82
-Pod[1].MaxCornerMss = document.getElementById('cornering_accelleration').value * 9.82
-Pod[1].MaxPower = document.getElementById('max_power').value
-Pod[1].Mass = document.getElementById('podweight').value * 1000
-Pod[1].AeroDrag = document.getElementById('aero_drag').value
-Pod[1].TireLiftDrag = document.getElementById('tire_drag').value
+    var length = RouteLine.inM()
+    document.getElementById('length').value = length/1000
+    Pod[1].MaxSpeed = document.getElementById('max_velocity').value / 3.6
+    Pod[1].MaxAccelMss = document.getElementById('accelleration').value * 9.82
+    Pod[1].MaxCornerMss = document.getElementById('cornering_accelleration').value * 9.82
+    Pod[1].MaxPower = document.getElementById('max_power').value
+    Pod[1].Mass = document.getElementById('podweight').value * 1000
+    Pod[1].AeroDrag = document.getElementById('aero_drag').value
+    Pod[1].TireLiftDrag = document.getElementById('tire_drag').value
 
-var xhr = new XMLHttpRequest();
-var url = "https://euroloop-route.herokuapp.com/request";
-xhr.open("POST", url, true);
+    var xhr = new XMLHttpRequest();
+    var url = "https://euroloop-route.herokuapp.com/request";
+    xhr.open("POST", url, true);
 
-UpDateAll()
+    UpDateAll()
 
-var vel = parseInt( document.getElementById('max_velocity').value )
-var throughput = parseInt( document.getElementById('throughput').value )
-var diameter = parseFloat( document.getElementById('diameter').value )
-var loadingtime = parseFloat( document.getElementById('loadingtime').value )
+    var vel = parseInt( document.getElementById('max_velocity').value )
+    var throughput = parseInt( document.getElementById('throughput').value )
+    var diameter = parseFloat( document.getElementById('diameter').value )
+    var loadingtime = parseFloat( document.getElementById('loadingtime').value )
 
-var data = JSON.stringify({"length": length, "velocity": vel, "travel_time": TotTime,  "throughput": throughput, "diameter": diameter, "loadingtime": loadingtime});
+    var data = JSON.stringify({"length": length, "velocity": vel, "travel_time": TotTime,  "throughput": throughput, "diameter": diameter, "loadingtime": loadingtime});
 
-xhr.onreadystatechange = function() {//Call a function when the response is received.
-  if(xhr.readyState == 4 && xhr.status == 200) {
-      console.log(xhr.responseText);
-      var jsonResponse = JSON.parse(xhr.responseText);
-      document.getElementById('nrPods').value = jsonResponse.nrpods
-      document.getElementById('capex').value = jsonResponse.capex/1000000
-  }
-}
-xhr.send(data);
+    xhr.onreadystatechange = function() {//Call a function when the response is received.
+      if(xhr.readyState == 4 && xhr.status == 200) {
+          console.log(xhr.responseText);
+          var jsonResponse = JSON.parse(xhr.responseText);
+          document.getElementById('nrPods').value = jsonResponse.nrpods
+          document.getElementById('capex').value = jsonResponse.capex/1000000
+      }
+    }
+    xhr.send(data);
 
 }
 
@@ -1051,7 +1046,7 @@ Pod[1]={
     TireLiftDrag: 150,
     AeroDrag: 500, // drag, N at max speed
     NumPax: 1,
-    DoChart: 0
+    DoChart: 1
 };
 
 Pod[2]={
@@ -1113,7 +1108,8 @@ Pod[5]={
 var ChartPod = new Array(0); // the list of up to 3 charts to draw
 var NumPodsToChart = 0;
 var ThisPod = p = 0;
-
+var TempPod = Pod[1];
+var CurrentPodNr = 1;
 
 DeleteMenu.prototype = new google.maps.OverlayView();
 
@@ -1205,6 +1201,35 @@ function setChart(nr, chart){
         DoSpeedChart = true
     }
     UpDateAll()
+}
+
+function loadPod(nr){
+    console.log("Loaded pod " + nr)
+    if (TempPod != null){
+        Pod[CurrentPodNr] = TempPod    
+    }
+    
+    for (i=1; i<6; i++){
+        if (i == nr) {
+
+            Pod[i].DoChart = 1;
+
+            document.getElementById('max_velocity').value = Pod[i].MaxSpeed * 3.6
+            document.getElementById('accelleration').value = (Pod[i].MaxAccelMss / 9.82).toFixed(2)
+            document.getElementById('cornering_accelleration').value = (Pod[i].MaxCornerMss / 9.82).toFixed(2)
+            document.getElementById('max_power').value = Pod[i].MaxPower
+            document.getElementById('podweight').value = Pod[i].Mass / 1000
+            document.getElementById('aero_drag').value = Pod[i].AeroDrag 
+            document.getElementById('tire_drag').value = Pod[i].TireLiftDrag
+            TempPod = Pod[i]
+            CurrentPodNr = i
+        } else {
+
+            Pod[i].DoChart = 0;
+        }
+
+    }
+
 }
 
 // Close the dropdown if the user clicks outside of it
