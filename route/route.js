@@ -233,15 +233,50 @@ function plotElevation(elevations, status) {
   const data = new google.visualization.DataTable();
   data.addColumn('string', 'Sample');
   data.addColumn('number', 'Elevation');
-  for (let i = 0; i < elevations.length; i++) {
+
+  var elevData
+
+  elevData = elevations[0].elevation + ',' + elevations[0].location + ',' +elevations[0].resolution + '|' 
+
+  for (let i = 1; i < elevations.length; i++) {
     data.addRow(['', elevations[i].elevation]);
+    elevData = elevData + elevations[i].elevation + ',' + elevations[i].location + ',' +elevations[i].resolution + '|' 
   }
 
+  	elevData = elevData.slice(0, -1) //remove last '|'
+
+	var xhr = new XMLHttpRequest();
+	var url = "https://peaceful-sands-13508.herokuapp.com/";
+	xhr.open("POST", url, true);
+
+    xhr.onreadystatechange = function() {	//Call a function when the response is received.
+    	console.log("ELEVATION RESPONSE:")
+		console.log(xhr.responseText);
+
+		resp = xhr.responseText.replace('[', '').replace(']', '').replace(' ', '')
+		resp_data = resp.split(',')
+
+		const smooth_elev_data = new google.visualization.DataTable();
+	  	smooth_elev_data.addColumn('string', 'Sample');
+	  	smooth_elev_data.addColumn('number', 'Elevation');
+
+		for (let i = 0; i < resp_data.length; i++) {
+		    smooth_elev_data.addRow(['', parseFloat( resp_data[i] ) ]);
+		}
+
+		chart.draw(smooth_elev_data, {
+		    legend: 'none',
+		    titleY: 'Elevation (m)'
+	  	});
+	}
+
+	xhr.send(elevData)
+
   // Draw the chart using the data within its DIV.
-  chart.draw(data, {
-    legend: 'none',
-    titleY: 'Elevation (m)'
-  });
+  // chart.draw(data, {
+  // 	legend: 'none',
+  // 	titleY: 'Elevation (m)'
+  // });
 }
 /*
 var jsonRoute = ''{ 
