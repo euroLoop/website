@@ -966,7 +966,9 @@ function PrintInfo(ThisPod){
 // Call backend service and update values
 function updateRoute(event){
 
-    displayPathElevation(RouteLine.getPath().getArray(), elevator, map);
+	if ( RouteLine.getPath().getArray().length > 2 ) {
+    	displayPathElevation(RouteLine.getPath().getArray(), elevator, map);
+	}
 
     var length = RouteLine.inM()
     document.getElementById('length').value = length/1000
