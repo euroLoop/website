@@ -240,19 +240,16 @@ function plotElevation(elevations, status) {
 
   for (let i = 1; i < elevations.length; i++) {
     data.addRow(['', elevations[i].elevation]);
-    elevData = elevData + elevations[i].elevation + ',' + elevations[i].location + ',' +elevations[i].resolution + '|' 
+    //elevData = elevData + elevations[i].elevation + ',' + elevations[i].location + ',' +elevations[i].resolution + '|' 
   }
 
-  	elevData = elevData.slice(0, -1) //remove last '|'
+  	//elevData = elevData.slice(0, -1) //remove last '|'
 
 	var xhr = new XMLHttpRequest();
 	var url = "https://peaceful-sands-13508.herokuapp.com/";
 	xhr.open("POST", url, true);
 
     xhr.onreadystatechange = function() {	//Call a function when the response is received.
-    	console.log("ELEVATION RESPONSE:")
-		console.log(xhr.responseText);
-
 		resp = xhr.responseText.replace('[', '').replace(']', '').replace(' ', '')
 		resp_data = resp.split(',')
 
@@ -270,13 +267,13 @@ function plotElevation(elevations, status) {
 	  	});
 	}
 
-	xhr.send(elevData)
+	//xhr.send(elevData)
 
   // Draw the chart using the data within its DIV.
-  // chart.draw(data, {
-  // 	legend: 'none',
-  // 	titleY: 'Elevation (m)'
-  // });
+  chart.draw(data, {
+   	legend: 'none',
+   	titleY: 'Elevation (m)'
+  });
 }
 /*
 var jsonRoute = ''{ 
@@ -966,7 +963,7 @@ function PrintInfo(ThisPod){
 // Call backend service and update values
 function updateRoute(event){
 
-	if ( RouteLine.getPath().getArray().length > 2 ) {
+	if ( RouteLine.getPath().getArray().length > 1 ) {
     	displayPathElevation(RouteLine.getPath().getArray(), elevator, map);
 	}
 
