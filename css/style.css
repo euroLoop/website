@@ -86,9 +86,33 @@ body.landing header#header.thin {
   height: 4em;
 }
 
+section#one, section#two {
+  filter: blur(3px);
+}
+
 .animate-nav {
   transition: 0.6s;
   -webkit-transition: 0.6s;
+}
+
+.new-website-info {
+  background: #e1001a;
+  line-height: 2em;
+  color: white;
+  padding-bottom: 1px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.new-website-info p {
+  margin-bottom: 0px;
+}
+
+#navButton {
+  top: 2.2em !important;
 }
 
 #three .image img {
@@ -158,8 +182,12 @@ header img.main-small-logo-grey {
   font-size: 0.7em;
 }
 
+#banner {
+  margin-top: 3em;
+}
+
 #banner.desktop {
-  margin-top: 6em;
+  margin-top: 8em;
 }
 
 .large-twitter {
@@ -1128,7 +1156,7 @@ body.landing #header {
   background-color: transparent;
   left: 0;
   position: absolute;
-  top: 0;
+  top: 2em;
 }
 
 #header {

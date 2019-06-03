@@ -169,6 +169,8 @@ const translations = {
 		'euroloop-contact-title': 'Contact Us',
 		'euroloop-contact-address-title': 'Adress',
 		'euroloop-contact-address': 'Jagiellonska 39, Nowy Sacz 33-300 Poland',
+
+    'new-website': 'We’re working on something great, we\'ll be back soon!'
   },
   'pl': {
 		// Navigation
@@ -292,7 +294,7 @@ const translations = {
     'euroloop-team-pawel': '6 miesięcy w projektowaniu aplikacji systemu bezpieczeństwa dla hybrydowego systemu kaskadowo-kompresyjnego kaskadowego opartego na PLC Siemens (Politechnika Krakowska). 5 miesięcy w projektowaniu systemu sterowania przygotowującego bardzo dokładne mieszaniny gazów (CERN). 1 rok w optymalizacji procesu produkcyjnego (przemysł motoryzacyjny). 3,5-letnie doświadczenie jako programista PLC, inżynier ds. Instalacji oprogramowania i sprzętu na budowie.',
     'euroloop-team-pawel-linkedin': 'Paweł na LinkedIn',
     'euroloop-team-elias': 'Magister Cybernetyki i Robotyki, Politechnika Czeska, Wydział Elektryczny. CEO firmy ADVANTICS Sarl - sterowanie silnikiem EV, konwertery mocy. Inżynier systemów sprzężenia zwrotnego RF w CERN, 5 lat. Inżynier elektronik w branży medycznej, 2 lata. Inżynier RF w systemach komunikacji mikrofalowej, 2 lata.',
-    'euroloop-team-elias-linkedin': 'Michal na LinkedIn',
+    'euroloop-team-elias-linkedin': 'Michał na LinkedIn',
 
 		// Press
 		'euroloop-press-title': 'Prasa',
@@ -304,6 +306,8 @@ const translations = {
 		'euroloop-contact-title': 'Skontaktuj się z nami',
 		'euroloop-contact-address-title': 'Adres',
 		'euroloop-contact-address': 'ul. Jagiellońska 39, Nowy Sącz 33-300, Polska',
+
+    'new-website': 'Pracujemy nad czymś fajnym. Wracamy wkrótce!'
   }
 };
 
